@@ -1,7 +1,7 @@
 {
   "name": "node-api-starter",
   "version": "1.0.0",
-  "description": "Simple starter for Node Rest API server using ExpressJS",
+  "description": "Full-featured starter for Node Rest API server using ExpressJS",
   "author": "Martin Litvaj <kamahl19@gmail.com> (http://litvaj.com)",
   "license": "MIT",
   "repository": {

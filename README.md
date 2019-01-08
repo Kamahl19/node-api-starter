@@ -1,7 +1,5 @@
 # Node API Starter
 
-Simple starter for Node Rest API server using ExpressJS
-
 ## What’s Inside?
 
 - `JWT Authorization` - including all the common features such as Sign-up, Login, Logout, Reset password, Email verification
