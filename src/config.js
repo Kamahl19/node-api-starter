@@ -1,13 +1,5 @@
 'use strict';
 
-function isDev() {
-  return process.env.NODE_ENV === 'development';
-}
-
-function isProd() {
-  return process.env.NODE_ENV === 'production';
-}
-
 module.exports = {
   isDev,
   isProd,
@@ -28,5 +20,15 @@ module.exports = {
     activationExpireInMs: 24 * 60 * 60 * 1000, // 1 day
     saltRounds: 10,
   },
-  cacheFilesFor: isProd() ? '1d' : 0,
+  static: {
+    maxAge: isProd() ? '1d' : 0,
+  },
 };
+
+function isDev() {
+  return process.env.NODE_ENV === 'development';
+}
+
+function isProd() {
+  return process.env.NODE_ENV === 'production';
+}

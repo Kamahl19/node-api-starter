@@ -7,9 +7,7 @@ module.exports = {
     .hex()
     .length(24),
 
-  hexToken: Joi.string()
-    .hex()
-    .length(32),
+  uuidv4: Joi.string().guid('uuidv4'),
 
   email: Joi.string()
     .email()

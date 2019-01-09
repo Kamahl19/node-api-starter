@@ -1,12 +1,12 @@
 const morgan = require('morgan');
 const RotatingFileStream = require('rotating-file-stream');
 
-const config = require('../../config');
+const { isDev } = require('../../config');
 const { createLogsDirectory } = require('../helpers');
 
 const logDirectory = createLogsDirectory();
 
-module.exports = config.isDev()
+module.exports = isDev()
   ? morgan('dev')
   : morgan('combined', {
       skip: (_, res) => res.statusCode < 400,

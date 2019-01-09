@@ -36,12 +36,7 @@ if (config.cors && config.cors.origin) {
 
 app.use(helmet());
 
-app.use(
-  '/',
-  express.static(path.resolve(__dirname, '..', '..', 'public'), {
-    maxAge: config.cacheFilesFor,
-  })
-);
+app.use('/', express.static(path.resolve(__dirname, '..', '..', 'public'), config.static));
 
 app.use('/healthcheck', healthcheck());
 

@@ -1,6 +1,5 @@
 'use strict';
 
-// Load .env file with all the configuration
 require('dotenv').config();
 
 const seeder = require('mongoose-seed');

@@ -27,8 +27,8 @@ class DummyTransporter {
 const transporter = MAILGUN_API_KEY && MAILGUN_DOMAIN ? mailgunTransporter : new DummyTransporter();
 
 module.exports = {
-  sendMail: function sendMail(to, template, options) {
-    return transporter.sendMail(
+  sendMail: (to, template, options) =>
+    transporter.sendMail(
       lodash.merge(
         {
           from: config.mail.from,
@@ -37,6 +37,5 @@ module.exports = {
         template,
         options
       )
-    );
-  },
+    ),
 };

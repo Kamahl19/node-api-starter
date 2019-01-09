@@ -1,6 +1,5 @@
 'use strict';
 
-const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const once = require('lodash.once');
@@ -17,19 +16,11 @@ module.exports = {
       return val;
     }
 
-    // Port number
     if (port >= 0) {
       return port;
     }
 
     return false;
-  },
-
-  /**
-   * Generate Hex Token
-   */
-  generateHexToken: () => {
-    return crypto.randomBytes(16).toString('hex');
   },
 
   /**
