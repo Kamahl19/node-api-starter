@@ -1,9 +1,10 @@
 'use strict';
 
+const uuidv4 = require('uuid/v4');
+
 const config = require('../../config');
 const mailer = require('../../common/services/mailer');
 const { comparePassword, hashPassword } = require('../../common/services/auth');
-const { generateHexToken } = require('../../common/helpers');
 const {
   forgottenPasswordMail,
   resetPasswordMail,
@@ -34,7 +35,7 @@ module.exports = {
     const user = new User({
       email: userData.email.toLowerCase(),
       password,
-      activationToken: generateHexToken(),
+      activationToken: uuidv4(),
       activationExpires: Date.now() + config.auth.activationExpireInMs,
     });
 
@@ -103,7 +104,7 @@ module.exports = {
 
   forgottenPassword: async (email, origin) => {
     const newData = {
-      passwordResetToken: generateHexToken(),
+      passwordResetToken: uuidv4(),
       passwordResetExpires: Date.now() + config.auth.passwordResetExpireInMs,
     };
 

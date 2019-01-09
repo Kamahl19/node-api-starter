@@ -1,6 +1,5 @@
 'use strict';
 
-const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const once = require('lodash.once');
@@ -23,11 +22,6 @@ module.exports = {
 
     return false;
   },
-
-  /**
-   * Generate Hex Token
-   */
-  generateHexToken: () => crypto.randomBytes(16).toString('hex'),
 
   /**
    * Create directory for log files

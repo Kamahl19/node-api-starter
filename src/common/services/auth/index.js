@@ -13,13 +13,11 @@ function parseAuthHeader(authHeader) {
 module.exports = {
   isAuthHeaderValid: authHeader => {
     const { bearer, token } = parseAuthHeader(authHeader);
-
     return !!(/^Bearer$/i.test(bearer) && token);
   },
 
   getPayloadFromAuthHeader: authHeader => {
     const { token } = parseAuthHeader(authHeader);
-
     return jwt.verify(token, process.env.JWT_SECRET);
   },
 
