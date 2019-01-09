@@ -3,7 +3,7 @@
 const httpStatus = require('http-status');
 const { isCelebrate } = require('celebrate');
 
-const config = require('../../config');
+const { isDev } = require('../../config');
 const logger = require('../../common/services/logger');
 const { PageNotFoundError, RequestNotValidError } = require('../../common/messages/errors');
 
@@ -49,7 +49,7 @@ module.exports = {
 
     res.json({
       message: err.message,
-      error: config.isDev() ? err : {},
+      error: isDev() ? err : {},
     });
   },
 };

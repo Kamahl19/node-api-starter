@@ -4,7 +4,14 @@ const router = require('express').Router();
 
 const validator = require('../../common/services/validator');
 const verifyToken = require('../../common/services/auth/middleware/verifyToken');
-const { signUp, activate, login, forgottenPassword, resetPassword } = require('./userController');
+const {
+  signUp,
+  activate,
+  login,
+  relogin,
+  forgottenPassword,
+  resetPassword,
+} = require('./userController');
 const {
   signUpSchema,
   activateSchema,
@@ -19,7 +26,7 @@ router.get('/users/:userId/activate/:activationToken', validator(activateSchema)
 
 router.post('/auth/login', validator(loginSchema), login);
 
-router.get('/auth/relogin', verifyToken, login);
+router.get('/auth/relogin', verifyToken, relogin);
 
 router.post('/auth/forgotten-password', validator(forgottenPasswordSchema), forgottenPassword);
 

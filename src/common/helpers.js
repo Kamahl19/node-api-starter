@@ -17,7 +17,6 @@ module.exports = {
       return val;
     }
 
-    // Port number
     if (port >= 0) {
       return port;
     }
@@ -28,9 +27,7 @@ module.exports = {
   /**
    * Generate Hex Token
    */
-  generateHexToken: () => {
-    return crypto.randomBytes(16).toString('hex');
-  },
+  generateHexToken: () => crypto.randomBytes(16).toString('hex'),
 
   /**
    * Create directory for log files

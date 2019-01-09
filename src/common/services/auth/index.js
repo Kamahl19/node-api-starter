@@ -6,12 +6,8 @@ const bcrypt = require('bcryptjs');
 const config = require('../../../config');
 
 function parseAuthHeader(authHeader) {
-  const parts = authHeader.split(' ');
-
-  return {
-    bearer: parts[0],
-    token: parts[1],
-  };
+  const [bearer, token] = authHeader.split(' ');
+  return { bearer, token };
 }
 
 module.exports = {
@@ -27,34 +23,13 @@ module.exports = {
     return jwt.verify(token, process.env.JWT_SECRET);
   },
 
-  generateJWTToken: subject => {
-    const options = {
-      expiresIn: config.auth.jwtTokenExpireInSec,
-      subject,
-    };
+  generateJWTToken: (subject, expiresIn = config.auth.jwtTokenExpireInSec) =>
+    jwt.sign({}, process.env.JWT_SECRET, { subject, expiresIn }),
 
-    return jwt.sign({}, process.env.JWT_SECRET, options);
+  hashPassword: async password => {
+    const salt = await bcrypt.genSalt(config.auth.saltRounds);
+    return await bcrypt.hash(password, salt);
   },
 
-  hashPassword: password => {
-    return new Promise((resolve, reject) => {
-      bcrypt.genSalt(config.auth.saltRounds, (err, salt) => {
-        if (err) {
-          return reject(err);
-        }
-
-        bcrypt.hash(password, salt, (err, hash) => {
-          if (err) {
-            return reject(err);
-          }
-
-          resolve(hash);
-        });
-      });
-    });
-  },
-
-  comparePassword: (password, hash) => {
-    return bcrypt.compareSync(password, hash);
-  },
+  comparePassword: (password, hash) => bcrypt.compareSync(password, hash),
 };
