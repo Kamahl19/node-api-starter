@@ -9,7 +9,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # logs
-logs
+logs/
 
 # env variables
 .env
