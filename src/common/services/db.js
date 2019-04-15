@@ -20,14 +20,11 @@ mongoose.connection.on('error', err => {
 
 module.exports = {
   connect: () =>
-    mongoose.connect(
-      process.env.MONGO_URL,
-      {
-        promiseLibrary: global.Promise,
-        useNewUrlParser: true,
-        useCreateIndex: true,
-      }
-    ),
+    mongoose.connect(process.env.MONGO_URL, {
+      promiseLibrary: global.Promise,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    }),
 
   closeConnection: cb => {
     mongoose.connection.close(() => {
