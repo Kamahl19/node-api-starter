@@ -17,7 +17,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "format": "prettier --write **/*.{js,json,md}",
+    "format": "prettier --write '**/*.{js,json,md}'",
     "lint": "node ./node_modules/eslint/bin/eslint.js --ext .js src/",
     "seed": "node src/seeds/index.js",
     "start": "cross-env NODE_ENV=development nodemon --watch .env --watch . --inspect src/index.js"
