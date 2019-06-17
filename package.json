@@ -57,6 +57,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "es6-error": "^4.1.1",
+    "escape-html": "^1.0.3",
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
     "helmet": "^3.18.0",

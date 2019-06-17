@@ -2,6 +2,7 @@
 
 const httpStatus = require('http-status');
 const { isCelebrate } = require('celebrate');
+const escapeHtml = require('escape-html');
 
 const { isDev } = require('../../config');
 const logger = require('../../common/services/logger');
@@ -12,24 +13,26 @@ module.exports = {
    * Catch request params, body, headers & query validation errors
    */
   requestValidationErrorHandler: (err, _req, _res, _next) => {
-    if (isCelebrate(err)) {
-      const validation = {
-        source: err._meta.source,
-        ...(err.details
-          ? err.details.reduce(
-              (acc, { path, message }) => ({
-                keys: [...acc.keys, path.join('.')],
-                messages: [...acc.messages, message],
-              }),
-              { keys: [], messages: [] }
-            )
-          : {}),
-      };
-
-      throw RequestNotValidError(err.message, validation);
+    if (!isCelebrate(err)) {
+      throw err;
     }
 
-    throw err;
+    const { joi, meta } = err;
+
+    const validation = {
+      source: meta.source,
+      keys: [],
+      messages: [],
+    };
+
+    if (joi.details) {
+      joi.details.forEach(({ path, message }) => {
+        validation.keys.push(escapeHtml(path.join('.')));
+        validation.messages.push(message);
+      });
+    }
+
+    throw RequestNotValidError(joi.message, validation);
   },
 
   /**
