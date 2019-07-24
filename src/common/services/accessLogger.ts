@@ -1,15 +1,17 @@
+import { Request, Response } from 'express';
+
 const morgan = require('morgan');
 const RotatingFileStream = require('rotating-file-stream');
 
-const { isDev } = require('../../config');
-const { createLogsDirectory } = require('../helpers');
+import config from '../../config';
+import { createLogsDirectory } from '../helpers';
 
 const logDirectory = createLogsDirectory();
 
-module.exports = isDev()
+export default config.isDev()
   ? morgan('dev')
   : morgan('combined', {
-      skip: (_, res) => res.statusCode < 400,
+      skip: (_: Request, res: Response) => res.statusCode < 400,
       stream: RotatingFileStream('access.log', {
         path: logDirectory,
         interval: '1d',

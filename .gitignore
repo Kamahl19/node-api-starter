@@ -13,3 +13,6 @@ logs/
 
 # env variables
 .env
+
+# IntelliJ IDEA
+.idea

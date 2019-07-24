@@ -1,8 +1,6 @@
-'use strict';
-
 const mongoose = require('mongoose');
 
-const { generateJWTToken } = require('../../common/services/auth');
+import { generateJWTToken } from '../../common/services/auth/index';
 
 const schema = new mongoose.Schema(
   {
@@ -29,4 +27,4 @@ schema.methods.getPublicData = function() {
   return { id, email, isActive };
 };
 
-module.exports = mongoose.model('User', schema);
+export default mongoose.model('User', schema);

@@ -1,6 +1,6 @@
-'use strict';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const http = require('http');
 
@@ -10,14 +10,14 @@ const app = require('./app/app');
 
 const server = http.createServer(app);
 
-server.on('error', err => {
+server.on('error', (err: any) => {
   logger.error(err);
 
   if (err.syscall !== 'listen') {
     throw err;
   }
 
-  const bind = `${typeof port === 'string' ? 'Pipe' : 'Port'} ${app.get('port')}`;
+  const bind = `${typeof app.get('port') === 'string' ? 'Pipe' : 'Port'} ${app.get('port')}`;
 
   switch (err.code) {
     case 'EACCES':
@@ -35,8 +35,8 @@ server.on('error', err => {
   }
 });
 
-process.on('SIGINT', cleanShutDown);
-process.on('SIGTERM', cleanShutDown);
+process.on('SIGINT', () => cleanShutDown());
+process.on('SIGTERM', () => cleanShutDown());
 
 function cleanShutDown(code = 0) {
   db.closeConnection(() => {

@@ -1,26 +1,24 @@
-'use strict';
-
-const express = require('express');
-const path = require('path');
-const helmet = require('helmet');
-const compression = require('compression');
-const bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import helmet from 'helmet';
+import compression from 'compression';
+import bodyParser from 'body-parser';
 
 const healthcheck = require('express-healthcheck');
 
-const config = require('../config');
-const routes = require('../app/routes');
-const { normalizePort } = require('../common/helpers');
-const accessLogger = require('../common/services/accessLogger');
-const {
+import config from '../config';
+import routes from '../app/routes';
+import { normalizePort } from '../common/helpers';
+import accessLogger from '../common/services/accessLogger';
+import {
   requestValidationErrorHandler,
   notFoundErrorHandler,
   expressErrorHandler,
-} = require('./middleware/errorHandlers');
+} from './middleware/errorHandlers';
 
 const app = express();
 
-app.set('port', normalizePort(process.env.PORT));
+app.set('port', normalizePort(process.env.PORT!));
 
 app.use(accessLogger);
 
@@ -46,4 +44,4 @@ app.use(requestValidationErrorHandler);
 app.use(notFoundErrorHandler);
 app.use(expressErrorHandler);
 
-module.exports = app;
+export default app;

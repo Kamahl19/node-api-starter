@@ -1,16 +1,14 @@
-'use strict';
-
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 const mailgunTransport = require('nodemailer-mailgun-transport');
 const lodash = require('lodash');
 
-const config = require('../../config');
-const logger = require('../../common/services/logger');
+import config from '../../config';
+import logger from '../../common/services/logger';
 
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN } = process.env;
 
 class DummyTransporter {
-  sendMail(data) {
+  sendMail(data: any) {
     logger.info(data);
   }
 }
@@ -27,16 +25,14 @@ const transporter =
       )
     : new DummyTransporter();
 
-module.exports = {
-  sendMail: (to, template, options) =>
-    transporter.sendMail(
-      lodash.merge(
-        {
-          from: config.mail.from,
-          to,
-        },
-        template,
-        options
-      )
-    ),
-};
+export const sendMail = (to: string, template: object, options: object) =>
+  transporter.sendMail(
+    lodash.merge(
+      {
+        from: config.mail.from,
+        to,
+      },
+      template,
+      options
+    )
+  );

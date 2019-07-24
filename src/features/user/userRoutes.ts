@@ -1,24 +1,22 @@
-'use strict';
-
 const router = require('express').Router();
 
-const validator = require('../../common/services/validator');
-const verifyToken = require('../../common/services/auth/middleware/verifyToken');
-const {
+import validator from '../../common/services/validator';
+import verifyToken from '../../common/services/auth/middleware/verifyToken';
+import {
   signUp,
   activate,
   login,
   relogin,
   forgottenPassword,
   resetPassword,
-} = require('./userController');
-const {
+} from './userController';
+import {
   signUpSchema,
   activateSchema,
   loginSchema,
   forgottenPasswordSchema,
   resetPasswordSchema,
-} = require('./userSchema');
+} from './userSchema';
 
 router.post('/users', validator(signUpSchema), signUp);
 
@@ -32,4 +30,4 @@ router.post('/auth/forgotten-password', validator(forgottenPasswordSchema), forg
 
 router.post('/auth/reset-password', validator(resetPasswordSchema), resetPassword);
 
-module.exports = router;
+export default router;

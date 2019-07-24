@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "extends": [],
   "rules": {
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "node/exports-style": ["error", "module.exports"]
