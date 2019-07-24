@@ -15,14 +15,14 @@
     "node": ">=10.15.3",
     "yarn": ">=1.15.2"
   },
-  "main": "src/index.js",
+  "main": "out/index.js",
   "scripts": {
     "format": "prettier --write '**/*.{ts,json,md}'",
     "lint": "node ./node_modules/eslint/bin/eslint.js '**/*.js'",
     "seed": "node src/seeds/index.js",
     "compile": "tsc",
     "watch": "tsc --watch",
-    "start": "cross-env NODE_ENV=development nodemon --watch .env --watch . --inspect src/index.js"
+    "start": "cross-env NODE_ENV=development nodemon --watch .env --watch . --inspect out/index.js"
   },
   "husky": {
     "hooks": {

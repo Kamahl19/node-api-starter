@@ -9,7 +9,7 @@
     "isolatedModules": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "noEmit": true,
+    "noEmit": false,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

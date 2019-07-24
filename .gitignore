@@ -16,3 +16,6 @@ logs/
 
 # IntelliJ IDEA
 .idea
+
+# Build
+out/
