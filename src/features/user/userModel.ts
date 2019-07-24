@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-import { generateJWTToken } from '../../common/services/auth/index';
+import { generateJWTToken } from 'common/services/auth/index';
 
 const schema = new mongoose.Schema(
   {

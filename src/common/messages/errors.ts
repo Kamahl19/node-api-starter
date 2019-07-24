@@ -4,7 +4,7 @@ import {
   ForbiddenError,
   UnauthorizedError,
   Validation,
-} from '../../common/apiErrors';
+} from 'common/apiErrors';
 
 export const PageNotFoundError = () => new NotFoundError('Page not found');
 

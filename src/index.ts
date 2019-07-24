@@ -1,12 +1,11 @@
 import dotenv from 'dotenv';
-
 dotenv.config();
 
 const http = require('http');
 
-const logger = require('./common/services/logger');
-const db = require('./common/services/db');
-const app = require('./app/app');
+const logger = require('common/services/logger');
+const db = require('common/services/db');
+const app = require('app/app');
 
 const server = http.createServer(app);
 

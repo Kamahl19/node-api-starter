@@ -1,6 +1,7 @@
 import { Response, NextFunction } from 'express';
-import { NotAllowedAccessError } from '../../../common/messages/errors';
-import { Req } from '../../../types';
+
+import { NotAllowedAccessError } from 'common/messages/errors';
+import { Req } from 'types';
 
 /**
  * Verify if user is accesing his own user account

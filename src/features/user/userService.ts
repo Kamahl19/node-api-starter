@@ -1,19 +1,20 @@
 const uuidv4 = require('uuid/v4');
 
-const config = require('../../config');
-const mailer = require('../../common/services/mailer');
-const { comparePassword, hashPassword } = require('../../common/services/auth');
+const config = require('config');
+const mailer = require('common/services/mailer');
+const { comparePassword, hashPassword } = require('common/services/auth');
 const {
   forgottenPasswordMail,
   resetPasswordMail,
   activationMail,
-} = require('../../common/messages/mails');
+} = require('common/messages/mails');
 const {
   UserNotFoundError,
   LoginCredentialsError,
   ActivationTokenInvalidError,
   PasswordResetTokenInvalidError,
-} = require('../../common/messages/errors');
+} = require('common/messages/errors');
+
 const User = require('./userModel');
 
 export const getUserById = async (userId: string) => {

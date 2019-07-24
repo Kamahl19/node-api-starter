@@ -6,10 +6,11 @@ import bodyParser from 'body-parser';
 
 const healthcheck = require('express-healthcheck');
 
-import config from '../config';
-import routes from '../app/routes';
-import { normalizePort } from '../common/helpers';
-import accessLogger from '../common/services/accessLogger';
+import config from 'config';
+import routes from 'app/routes';
+import { normalizePort } from 'common/helpers';
+import accessLogger from 'common/services/accessLogger';
+
 import {
   requestValidationErrorHandler,
   notFoundErrorHandler,

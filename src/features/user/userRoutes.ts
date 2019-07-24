@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-import validator from '../../common/services/validator';
-import verifyToken from '../../common/services/auth/middleware/verifyToken';
+import validator from 'common/services/validator';
+import verifyToken from 'common/services/auth/middleware/verifyToken';
 import {
   signUp,
   activate,

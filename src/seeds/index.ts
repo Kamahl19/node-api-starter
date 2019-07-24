@@ -2,8 +2,8 @@ require('dotenv').config();
 
 const seeder = require('mongoose-seed');
 
-import logger from '../common/services/logger';
-import { hashPassword } from '../common/services/auth/index';
+import logger from 'common/services/logger';
+import { hashPassword } from 'common/services/auth/index';
 
 seeder.connect(
   process.env.MONGO_URL,

@@ -1,5 +1,5 @@
 const { Joi } = require('celebrate');
-const { email, password, objectId, uuidv4 } = require('../../common/rules');
+const { email, password, objectId, uuidv4 } = require('common/rules');
 
 export const signUpSchema = {
   body: Joi.object().keys({

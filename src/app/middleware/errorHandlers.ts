@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-
 const httpStatus = require('http-status');
 const { isCelebrate } = require('celebrate');
 const escapeHtml = require('escape-html');
 
-const { isDev } = require('../../config');
-const logger = require('../../common/services/logger');
-const { PageNotFoundError, RequestNotValidError } = require('../../common/messages/errors');
+const { isDev } = require('config');
+const logger = require('common/services/logger');
+const { PageNotFoundError, RequestNotValidError } = require('common/messages/errors');
 
 /**
  * Catch request params, body, headers & query validation errors
