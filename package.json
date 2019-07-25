@@ -43,7 +43,7 @@
     "eslint": "5.16.0",
     "eslint-plugin-node": "9.1.0",
     "husky": "2.4.1",
-    "lint-staged": "8.2.1",
+    "lint-staged": "9.2.1",
     "nodemon": "1.19.1",
     "prettier": "1.18.2"
   },
