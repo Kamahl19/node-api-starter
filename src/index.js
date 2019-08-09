@@ -2,6 +2,8 @@
 
 require('dotenv').config();
 
+require('express-async-errors');
+
 const http = require('http');
 
 const logger = require('./common/services/logger');
