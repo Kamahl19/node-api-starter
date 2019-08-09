@@ -2,7 +2,7 @@
 
 const nodemailer = require('nodemailer');
 const mailgunTransport = require('nodemailer-mailgun-transport');
-const lodash = require('lodash');
+const merge = require('lodash.merge');
 
 const config = require('../../config');
 const logger = require('../../common/services/logger');
@@ -30,7 +30,7 @@ const transporter =
 module.exports = {
   sendMail: (to, template, options) =>
     transporter.sendMail(
-      lodash.merge(
+      merge(
         {
           from: config.mail.from,
           to,
