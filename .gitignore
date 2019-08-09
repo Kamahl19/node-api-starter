@@ -8,9 +8,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# logs
-logs/
-
 # ENV variables
 .env
 

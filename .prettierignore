@@ -1,7 +1,4 @@
 # Build
 public/
 
-# Logs
-logs/
-
 package.json

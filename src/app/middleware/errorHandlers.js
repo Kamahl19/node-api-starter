@@ -4,8 +4,7 @@ const httpStatus = require('http-status');
 const { isCelebrate } = require('celebrate');
 const escapeHtml = require('escape-html');
 
-const { isDev } = require('../../config');
-const logger = require('../../common/services/logger');
+const { IS_DEV } = require('../../config');
 const { PageNotFoundError, RequestNotValidError } = require('../../common/messages/errors');
 
 module.exports = {
@@ -46,13 +45,13 @@ module.exports = {
    * Log and return error
    */
   expressErrorHandler: (err, req, res, _next) => {
-    logger.error(err);
+    req.log.error(err);
 
     res.status(err.status || httpStatus.INTERNAL_SERVER_ERROR);
 
     res.json({
       message: err.message,
-      error: isDev() ? err : {},
+      error: IS_DEV ? err : {},
     });
   },
 };

@@ -1,8 +1,9 @@
 'use strict';
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+
 module.exports = {
-  isDev,
-  isProd,
+  IS_DEV,
   mail: {
     from: {
       name: 'Your Name',
@@ -21,14 +22,6 @@ module.exports = {
     saltRounds: 10,
   },
   static: {
-    maxAge: isProd() ? '1d' : 0,
+    maxAge: IS_DEV ? 0 : '1d',
   },
 };
-
-function isDev() {
-  return process.env.NODE_ENV === 'development';
-}
-
-function isProd() {
-  return process.env.NODE_ENV === 'production';
-}

@@ -1,22 +1,9 @@
 'use strict';
 
-const bunyan = require('bunyan');
+const pino = require('pino');
 
-const { createLogsDirectory } = require('../helpers');
+const { IS_DEV } = require('../../config');
 
-const logDirectory = createLogsDirectory();
-
-module.exports = bunyan.createLogger({
-  name: 'logger',
-  streams: [
-    {
-      stream: process.stdout,
-    },
-    {
-      type: 'rotating-file',
-      path: logDirectory + '/logs.log',
-    },
-  ],
+module.exports = pino({
+  prettyPrint: IS_DEV,
 });
-
-// Logging Levels: fatal, error, warn, info, debug, trace

@@ -1,9 +1,7 @@
 'use strict';
 
 require('dotenv').config();
-
 require('express-async-errors');
-
 const http = require('http');
 
 const logger = require('./common/services/logger');
@@ -24,12 +22,12 @@ server.on('error', err => {
   switch (err.code) {
     case 'EACCES':
       logger.fatal(`${bind} requires elevated privileges`);
-      cleanShutDown(1);
+      shutDown(1);
       break;
 
     case 'EADDRINUSE':
       logger.fatal(`${bind} is already in use`);
-      cleanShutDown(1);
+      shutDown(1);
       break;
 
     default:
@@ -37,10 +35,10 @@ server.on('error', err => {
   }
 });
 
-process.on('SIGINT', cleanShutDown);
-process.on('SIGTERM', cleanShutDown);
+process.on('SIGINT', shutDown);
+process.on('SIGTERM', shutDown);
 
-function cleanShutDown(code = 0) {
+function shutDown(code = 0) {
   db.closeConnection(() => {
     logger.info('MongoDB connection is closed through app termination');
     process.exit(code); // eslint-disable-line no-process-exit
