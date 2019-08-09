@@ -3178,7 +3178,7 @@ pino-http@^4.0.0:
     pino "^5.0.0"
     pino-std-serializers "^2.4.0"
 
-pino-pretty@^3.2.0:
+pino-pretty@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-3.2.0.tgz#2196d3b62e419a303dc126cda63ef396d39d97e7"
   integrity sha512-0gdTD1CywMwskBA1ciSz4tu4ZvcPxbIBUCfE+lUlFlhl9Dsa2SHf2v7EYUYGtNtlHH9XRduT6WC76NzKpIwv3g==
