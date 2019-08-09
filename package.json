@@ -30,11 +30,10 @@
   "lint-staged": {
     "*.js": [
       "yarn lint --fix",
-      "yarn format",
       "git add"
     ],
-    "*.{md,json}": [
-      "yarn format",
+    "*.{js,json,md}": [
+      "prettier --write",
       "git add"
     ]
   },
@@ -73,5 +72,17 @@
     "nodemailer-mailgun-transport": "^1.4.0",
     "rotating-file-stream": "^1.4.3",
     "uuid": "^3.3.2"
+  },
+  "eslintConfig": {
+    "extends": ["eslint:recommended", "plugin:node/recommended"],
+    "rules": {
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+      "node/exports-style": ["error", "module.exports"]
+    }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }

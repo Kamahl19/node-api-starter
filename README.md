@@ -18,16 +18,6 @@
 
 This project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting environmental variables during development. Simply copy the `.env.example` file, rename it to `.env` and add your env variables as you see fit. Don't forget to set `MONGO_URL` properly.
 
-### Install, Seed DB & Start the server
-
-```
-yarn install
-yarn seed
-yarn start
-```
-
-The server will start at `http://localhost:3001`
-
 ## Project structure
 
 ```
@@ -38,6 +28,16 @@ The server will start at `http://localhost:3001`
  |--| seeds/: DB seed files
  |--| index.js: Application entry file
 ```
+
+### Install, Seed DB & Start the server
+
+```
+yarn install
+yarn seed
+yarn start
+```
+
+The server will start at `http://localhost:3001`
 
 ## Deployment to Heroku
 
@@ -53,7 +53,7 @@ git push heroku master
 
 ## Prettier
 
-This project uses [Prettier](https://prettier.io/), an opinionated code formatter. It also comes with Prettier configuration for [Visual Studio Code](https://code.visualstudio.com/). In order to format code manually, run `yarn format` in app root directory.
+This project uses [Prettier](https://prettier.io/), an opinionated code formatter. In order to format code manually, run `yarn format` in app root directory. All the code is also formatted automatically on `pre-commit` hook.
 
 ## ESLint
 
@@ -62,4 +62,9 @@ Project comes with ESLint configured. It helps you prevent common errors.
 There are multiple ways how to run ESLint.
 
 - CLI: `yarn lint`
+- it runs automatically on `pre-commit` hook
 - in IDE if supported (Visual Studio Code supports reports)
+
+## Updating dependencies
+
+Project comes with the default [Renovate](https://renovatebot.com) config `renovate.json`. It takes care of automated dependency updates and it's free of charge for open-source projects. More about how to [configure here](https://renovatebot.com/docs).

@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
-  "javascript.validate.enable": false,
-  "prettier.requireConfig": true
+  "eslint.validate": ["javascript"],
+  "prettier.requireConfig": true,
+  "javascript.validate.enable": false
 }
