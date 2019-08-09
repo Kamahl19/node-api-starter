@@ -44,7 +44,7 @@
     "husky": "3.0.3",
     "lint-staged": "9.2.1",
     "nodemon": "1.19.1",
-    "pino-pretty": "^3.2.0",
+    "pino-pretty": "3.2.0",
     "prettier": "1.18.2"
   },
   "dependencies": {
