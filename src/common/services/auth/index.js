@@ -3,7 +3,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const config = require('../../../config');
+const {
+  auth: { jwtTokenExpireInSec, saltRounds, jwtSecret },
+} = require('../../../config');
 
 function parseAuthHeader(authHeader) {
   const [bearer, token] = authHeader.split(' ');
@@ -18,14 +20,14 @@ module.exports = {
 
   getPayloadFromAuthHeader: authHeader => {
     const { token } = parseAuthHeader(authHeader);
-    return jwt.verify(token, process.env.JWT_SECRET);
+    return jwt.verify(token, jwtSecret);
   },
 
-  generateJWTToken: (subject, expiresIn = config.auth.jwtTokenExpireInSec) =>
-    jwt.sign({}, process.env.JWT_SECRET, { subject, expiresIn }),
+  generateJWTToken: (subject, expiresIn = jwtTokenExpireInSec) =>
+    jwt.sign({}, jwtSecret, { subject, expiresIn }),
 
   hashPassword: async password => {
-    const salt = await bcrypt.genSalt(config.auth.saltRounds);
+    const salt = await bcrypt.genSalt(saltRounds);
     return await bcrypt.hash(password, salt);
   },
 

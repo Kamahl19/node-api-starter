@@ -2,7 +2,6 @@
 
 const uuidv4 = require('uuid/v4');
 
-const config = require('../../config');
 const mailer = require('../../common/services/mailer');
 const { comparePassword, hashPassword } = require('../../common/services/auth');
 const {
@@ -16,6 +15,10 @@ const {
   ActivationTokenInvalidError,
   PasswordResetTokenInvalidError,
 } = require('../../common/messages/errors');
+const {
+  auth: { activationExpireInMs, passwordResetExpireInMs },
+} = require('../../config');
+
 const User = require('./userModel');
 
 module.exports = {
@@ -36,7 +39,7 @@ module.exports = {
       email: userData.email.toLowerCase(),
       password,
       activationToken: uuidv4(),
-      activationExpires: Date.now() + config.auth.activationExpireInMs,
+      activationExpires: Date.now() + activationExpireInMs,
     });
 
     await user.save();
@@ -105,7 +108,7 @@ module.exports = {
   forgottenPassword: async (email, origin) => {
     const newData = {
       passwordResetToken: uuidv4(),
-      passwordResetExpires: Date.now() + config.auth.passwordResetExpireInMs,
+      passwordResetExpires: Date.now() + passwordResetExpireInMs,
     };
 
     const user = await User.findOneAndUpdate(

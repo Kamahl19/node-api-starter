@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 
 const logger = require('./logger');
+const { mongo } = require('../../config');
 
 mongoose.Promise = global.Promise;
 
@@ -20,7 +21,7 @@ mongoose.connection.on('error', err => {
 
 module.exports = {
   connect: () =>
-    mongoose.connect(process.env.MONGO_URL, {
+    mongoose.connect(mongo.url, {
       promiseLibrary: global.Promise,
       useNewUrlParser: true,
       useCreateIndex: true,

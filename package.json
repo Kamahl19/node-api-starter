@@ -20,7 +20,7 @@
     "format": "prettier --write '**/*.{js,json,md}'",
     "lint": "node ./node_modules/eslint/bin/eslint.js '**/*.js'",
     "seed": "node src/seeds/index.js",
-    "start": "cross-env NODE_ENV=development nodemon --watch .env --watch . --inspect src/index.js"
+    "start": "nodemon --watch .env --watch . --inspect src/index.js"
   },
   "husky": {
     "hooks": {
@@ -38,7 +38,6 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "5.2.0",
     "eslint": "6.1.0",
     "eslint-plugin-node": "9.1.0",
     "husky": "3.0.3",

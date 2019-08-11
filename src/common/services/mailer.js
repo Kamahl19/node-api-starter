@@ -4,10 +4,11 @@ const nodemailer = require('nodemailer');
 const mailgunTransport = require('nodemailer-mailgun-transport');
 const merge = require('lodash.merge');
 
-const config = require('../../config');
 const logger = require('../../common/services/logger');
-
-const { MAILGUN_API_KEY, MAILGUN_DOMAIN } = process.env;
+const {
+  mail: { from },
+  mailgun: { apiKey, domain },
+} = require('../../config');
 
 class DummyTransporter {
   sendMail(data) {
@@ -16,12 +17,12 @@ class DummyTransporter {
 }
 
 const transporter =
-  MAILGUN_API_KEY && MAILGUN_DOMAIN
+  apiKey && domain
     ? nodemailer.createTransport(
         mailgunTransport({
           auth: {
-            api_key: MAILGUN_API_KEY,
-            domain: MAILGUN_DOMAIN,
+            api_key: apiKey,
+            domain,
           },
         })
       )
@@ -32,7 +33,7 @@ module.exports = {
     transporter.sendMail(
       merge(
         {
-          from: config.mail.from,
+          from,
           to,
         },
         template,

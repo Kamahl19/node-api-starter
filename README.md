@@ -16,7 +16,7 @@
 
 ## Getting Started
 
-This project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting environmental variables during development. Simply copy the `.env.example` file, rename it to `.env` and add your env variables as you see fit. Don't forget to set `MONGO_URL` properly.
+This project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting environmental variables during development. Simply copy the `.env.example` file, rename it to `.env` and add your env variables as you see fit.
 
 ## Project structure
 
@@ -26,6 +26,7 @@ This project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting env
  |--| common/: Reusable common files such as messages, validation rules, services, utils etc.
  |--| features/: Features bundled into separate modules
  |--| seeds/: DB seed files
+ |--| config.js: Global application config file
  |--| index.js: Application entry file
 ```
 

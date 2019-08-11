@@ -7,6 +7,7 @@ const http = require('http');
 const logger = require('./common/services/logger');
 const db = require('./common/services/db');
 const app = require('./app/app');
+const { enviroment } = require('./config');
 
 const server = http.createServer(app);
 
@@ -51,6 +52,6 @@ db.connect().then(function startServer() {
     const bind = typeof addr === 'string' ? `pipe ${addr}` : `${addr.address}:${addr.port}`;
 
     logger.info(`Listening on ${bind}`);
-    logger.info(`Environment on ${process.env.NODE_ENV}`);
+    logger.info(`Environment on ${enviroment}`);
   });
 });
