@@ -17,6 +17,7 @@
 ## Getting Started
 
 This project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting environmental variables during development. Simply copy the `.env.example` file, rename it to `.env` and add your env variables as you see fit.
+There is also a `src/config.js` file with several configuration options.
 
 ## Project structure
 
