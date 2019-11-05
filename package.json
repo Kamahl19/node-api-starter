@@ -43,7 +43,7 @@
     "husky": "3.0.9",
     "lint-staged": "9.4.2",
     "nodemon": "1.19.4",
-    "pino-pretty": "3.2.2",
+    "pino-pretty": "3.3.0",
     "prettier": "1.18.2"
   },
   "dependencies": {
@@ -63,7 +63,7 @@
     "http-status": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
-    "mongoose": "^5.7.7",
+    "mongoose": "^5.7.8",
     "mongoose-seed": "^0.6.0",
     "nodemailer": "^6.3.1",
     "nodemailer-mailgun-transport": "^1.4.0",
