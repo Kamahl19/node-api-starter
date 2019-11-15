@@ -5,6 +5,7 @@ const {
   NotFoundError,
   ForbiddenError,
   UnauthorizedError,
+  Conflict,
 } = require('../../common/apiErrors');
 
 module.exports = {
@@ -28,4 +29,6 @@ module.exports = {
     new UnauthorizedError('Format of the Authorization header is invalid.'),
 
   RequestNotValidError: (message, validation) => new BadRequestError(message, validation),
+
+  UserAlreadyExistsError: () => new Conflict('User already exists'),
 };

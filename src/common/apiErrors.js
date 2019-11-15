@@ -44,4 +44,14 @@ module.exports = {
       this.status = httpStatus.NOT_FOUND;
     }
   },
+
+  /**
+   * Conflict 409
+   */
+  Conflict: class Conflict extends ExtendableError {
+    constructor(message) {
+      super(message);
+      this.status = httpStatus.CONFLICT;
+    }
+  },
 };

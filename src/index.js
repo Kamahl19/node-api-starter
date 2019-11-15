@@ -18,7 +18,7 @@ server.on('error', err => {
     throw err;
   }
 
-  const bind = `${typeof port === 'string' ? 'Pipe' : 'Port'} ${app.get('port')}`;
+  const bind = `${typeof err.port === 'string' ? 'Pipe' : 'Port'} ${app.get('port')}`;
 
   switch (err.code) {
     case 'EACCES':
@@ -27,7 +27,7 @@ server.on('error', err => {
       break;
 
     case 'EADDRINUSE':
-      logger.fatal(`${bind} is already in use`);
+      logger.fatal(`${bind} is already in use asd`);
       shutDown(1);
       break;
 
@@ -36,10 +36,10 @@ server.on('error', err => {
   }
 });
 
-process.on('SIGINT', shutDown);
-process.on('SIGTERM', shutDown);
+process.on('SIGINT', () => shutDown(0));
+process.on('SIGTERM', () => shutDown(0));
 
-function shutDown(code = 0) {
+function shutDown(code) {
   db.closeConnection(() => {
     logger.info('MongoDB connection is closed through app termination');
     process.exit(code); // eslint-disable-line no-process-exit

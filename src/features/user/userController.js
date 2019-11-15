@@ -1,10 +1,10 @@
 'use strict';
 
 const {
-  getUserById,
   createUser,
   activateUser,
   login,
+  relogin,
   forgottenPassword,
   resetPassword,
 } = require('./userService');
@@ -44,9 +44,7 @@ module.exports = {
   },
 
   relogin: async (req, res) => {
-    const userId = req.jwtPayload && req.jwtPayload.sub;
-
-    const user = await getUserById(userId);
+    const user = await relogin(req.jwtPayload.sub);
 
     return res.json({
       token: user.getAuthToken(),

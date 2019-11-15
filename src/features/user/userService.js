@@ -3,7 +3,6 @@
 const uuidv4 = require('uuid/v4');
 
 const mailer = require('../../common/services/mailer');
-const { comparePassword, hashPassword } = require('../../common/services/auth');
 const {
   forgottenPasswordMail,
   resetPasswordMail,
@@ -14,6 +13,7 @@ const {
   LoginCredentialsError,
   ActivationTokenInvalidError,
   PasswordResetTokenInvalidError,
+  UserAlreadyExistsError,
 } = require('../../common/messages/errors');
 const {
   auth: { activationExpireInMs, passwordResetExpireInMs },
@@ -22,22 +22,14 @@ const {
 const User = require('./userModel');
 
 module.exports = {
-  getUserById: async userId => {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      throw UserNotFoundError();
+  createUser: async (userData, origin) => {
+    if (await User.findOne().byEmail(userData.email)) {
+      throw UserAlreadyExistsError();
     }
 
-    return user;
-  },
-
-  createUser: async (userData, origin) => {
-    const password = await hashPassword(userData.password);
-
     const user = new User({
-      email: userData.email.toLowerCase(),
-      password,
+      email: userData.email,
+      password: userData.password,
       activationToken: uuidv4(),
       activationExpires: Date.now() + activationExpireInMs,
     });
@@ -57,74 +49,60 @@ module.exports = {
   },
 
   activateUser: async (userId, activationToken) => {
-    const newData = {
-      isActive: true,
-      activationToken: undefined,
-      activationExpires: undefined,
-    };
-
-    const user = await User.findOneAndUpdate(
-      {
-        _id: userId,
-        activationToken,
-        isActive: false,
-      },
-      newData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    )
-      .where('activationExpires')
-      .gt(Date.now())
-      .exec();
+    const user = await User.findById(userId)
+      .where({ activationToken, isActive: false })
+      .whereActivationNotExpired();
 
     if (!user) {
       throw ActivationTokenInvalidError();
     }
 
+    user.isActive = true;
+    user.activationToken = undefined;
+    user.activationExpires = undefined;
+
+    await user.save();
+
     return user;
   },
 
   login: async (email, password) => {
-    const user = await User.findOne(
-      {
-        email: email.toLowerCase(),
-      },
-      '+password'
-    );
+    const user = await User.findOne()
+      .byEmail(email)
+      .select('+password');
 
     if (!user) {
       throw UserNotFoundError();
     }
 
-    if (!comparePassword(password, user.password)) {
+    if (!user.comparePassword(password)) {
       throw LoginCredentialsError();
     }
 
     return user;
   },
 
-  forgottenPassword: async (email, origin) => {
-    const newData = {
-      passwordResetToken: uuidv4(),
-      passwordResetExpires: Date.now() + passwordResetExpireInMs,
-    };
-
-    const user = await User.findOneAndUpdate(
-      {
-        email: email.toLowerCase(),
-      },
-      newData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+  relogin: async userId => {
+    const user = await User.findById(userId);
 
     if (!user) {
       throw UserNotFoundError();
     }
+
+    return user;
+  },
+
+  forgottenPassword: async (email, origin) => {
+    const user = await User.findOne().byEmail(email);
+
+    if (!user) {
+      throw UserNotFoundError();
+    }
+
+    user.passwordResetToken = uuidv4();
+    user.passwordResetExpires = Date.now() + passwordResetExpireInMs;
+
+    await user.save();
 
     mailer.sendMail(
       user.email,
@@ -133,37 +111,32 @@ module.exports = {
         passwordResetToken: user.passwordResetToken,
       })
     );
+
+    return user;
   },
 
-  resetPassword: async (email, passwordResetToken, plainPassword) => {
-    const password = await hashPassword(plainPassword);
-
-    const newData = {
-      password,
-      passwordResetToken: undefined,
-      passwordResetExpires: undefined,
-    };
-
-    const user = await User.findOneAndUpdate(
-      {
-        email: email.toLowerCase(),
-        passwordResetToken,
-      },
-      newData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    )
-      .where('passwordResetExpires')
-      .gt(Date.now())
-      .exec();
+  resetPassword: async (email, passwordResetToken, password) => {
+    const user = await User.findOne()
+      .byEmail(email)
+      .where({ passwordResetToken })
+      .wherePasswordResetNotExpired();
 
     if (!user) {
       throw PasswordResetTokenInvalidError();
     }
 
-    mailer.sendMail(user.email, resetPasswordMail({ email: user.email }));
+    user.password = password;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    await user.save();
+
+    mailer.sendMail(
+      user.email,
+      resetPasswordMail({
+        email: user.email,
+      })
+    );
 
     return user;
   },

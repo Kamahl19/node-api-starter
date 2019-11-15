@@ -17,6 +17,6 @@ module.exports = {
   activationMail: ({ origin, userId, activationToken }) => ({
     subject: 'Activate your account',
     text: `Please click on the following link, or paste this into your browser to activate your account:\n
-  ${origin}/activate/${userId}/${activationToken}\n`,
+  ${origin}/auth/activate/${userId}/${activationToken}\n`,
   }),
 };

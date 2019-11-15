@@ -2,9 +2,9 @@
 
 const mongoose = require('mongoose');
 
-const { generateJWTToken } = require('../../common/services/auth');
+const { generateJWTToken, comparePassword, hashPassword } = require('../../common/services/auth');
 
-const schema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
@@ -17,16 +17,47 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
+userSchema.pre('save', async function save(next) {
+  if (this.isModified('password')) {
+    this.password = await hashPassword(this.password);
+  }
+
+  if (this.isModified('email')) {
+    this.email = this.email.toLowerCase();
+  }
+
+  next();
+});
+
 /**
- * Methods
+ * Schema methods
  */
-schema.methods.getAuthToken = function() {
+userSchema.methods.getAuthToken = function() {
   return generateJWTToken(this.id);
 };
 
-schema.methods.getPublicData = function() {
+userSchema.methods.getPublicData = function() {
   const { id, email, isActive } = this;
   return { id, email, isActive };
 };
 
-module.exports = mongoose.model('User', schema);
+userSchema.methods.comparePassword = function(password) {
+  return comparePassword(password, this.password);
+};
+
+/**
+ * Query methods
+ */
+userSchema.query.byEmail = function(email) {
+  return this.where({ email: email.toLowerCase() });
+};
+
+userSchema.query.wherePasswordResetNotExpired = function() {
+  return this.where('passwordResetExpires').gt(Date.now());
+};
+
+userSchema.query.whereActivationNotExpired = function() {
+  return this.where('activationExpires').gt(Date.now());
+};
+
+module.exports = mongoose.model('User', userSchema);
