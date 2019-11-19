@@ -37,8 +37,8 @@ userSchema.methods.getAuthToken = function() {
 };
 
 userSchema.methods.getPublicData = function() {
-  const { id, email, isActive } = this;
-  return { id, email, isActive };
+  const { id, email, isActive, createdAt, updatedAt } = this;
+  return { id, email, isActive, createdAt, updatedAt };
 };
 
 userSchema.methods.comparePassword = function(password) {

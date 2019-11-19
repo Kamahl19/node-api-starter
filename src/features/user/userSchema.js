@@ -5,34 +5,34 @@ const { Joi } = require('celebrate');
 const { email, password, objectId, uuidv4 } = require('../../common/rules');
 
 module.exports = {
-  signUpSchema: {
+  signUp: {
     body: Joi.object().keys({
       email: email.required(),
       password: password.required(),
     }),
   },
 
-  activateSchema: {
+  activate: {
     params: Joi.object().keys({
       userId: objectId.required(),
       activationToken: uuidv4.required(),
     }),
   },
 
-  loginSchema: {
+  login: {
     body: Joi.object().keys({
       email: email.required(),
       password: password.required(),
     }),
   },
 
-  forgottenPasswordSchema: {
+  forgottenPassword: {
     body: Joi.object().keys({
       email: email.required(),
     }),
   },
 
-  resetPasswordSchema: {
+  resetPassword: {
     body: Joi.object().keys({
       email: email.required(),
       password: password.required(),

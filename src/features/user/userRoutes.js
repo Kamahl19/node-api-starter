@@ -4,32 +4,27 @@ const router = require('express').Router();
 
 const validator = require('../../common/services/validator');
 const verifyToken = require('../../common/services/auth/middleware/verifyToken');
-const {
-  signUp,
-  activate,
-  login,
-  relogin,
-  forgottenPassword,
-  resetPassword,
-} = require('./userController');
-const {
-  signUpSchema,
-  activateSchema,
-  loginSchema,
-  forgottenPasswordSchema,
-  resetPasswordSchema,
-} = require('./userSchema');
+const controller = require('./userController');
+const schema = require('./userSchema');
 
-router.post('/users', validator(signUpSchema), signUp);
+router.post('/users', validator(schema.signUp), controller.signUp);
 
-router.get('/users/:userId/activate/:activationToken', validator(activateSchema), activate);
+router.get(
+  '/users/:userId/activate/:activationToken',
+  validator(schema.activate),
+  controller.activate
+);
 
-router.post('/auth/login', validator(loginSchema), login);
+router.post('/auth/login', validator(schema.login), controller.login);
 
-router.get('/auth/relogin', verifyToken, relogin);
+router.get('/auth/relogin', verifyToken, controller.relogin);
 
-router.post('/auth/forgotten-password', validator(forgottenPasswordSchema), forgottenPassword);
+router.post(
+  '/auth/forgotten-password',
+  validator(schema.forgottenPassword),
+  controller.forgottenPassword
+);
 
-router.post('/auth/reset-password', validator(resetPasswordSchema), resetPassword);
+router.post('/auth/reset-password', validator(schema.resetPassword), controller.resetPassword);
 
 module.exports = router;
