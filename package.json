@@ -41,7 +41,7 @@
     "eslint": "6.7.1",
     "eslint-plugin-node": "10.0.0",
     "husky": "3.1.0",
-    "lint-staged": "9.4.3",
+    "lint-staged": "9.5.0",
     "nodemon": "2.0.1",
     "pino-pretty": "3.4.0",
     "prettier": "1.19.1"
