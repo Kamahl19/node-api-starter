@@ -12,12 +12,13 @@
     "url": "https://github.com/Kamahl19/node-api-starter/issues"
   },
   "engines": {
-    "node": ">=10.16.3",
-    "yarn": ">=1.17.3"
+    "node": ">=10",
+    "yarn": ">=1.17"
   },
   "main": "src/index.js",
   "scripts": {
-    "format": "prettier --write '**/*.{js,json,md}'",
+    "format": "prettier --write '**/*.{js,json,md,yml,yaml}'",
+    "format-check": "prettier --check '**/*.{js,json,md,yml,yaml}'",
     "lint": "node ./node_modules/eslint/bin/eslint.js '**/*.js'",
     "seed": "node src/seeds/index.js",
     "start": "nodemon --watch .env --watch . --inspect src/index.js"
@@ -32,7 +33,7 @@
       "yarn lint --fix",
       "git add"
     ],
-    "*.{js,json,md}": [
+    "*.{js,json,md,yml,yaml}": [
       "prettier --write",
       "git add"
     ]
