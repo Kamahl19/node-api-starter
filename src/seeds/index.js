@@ -13,6 +13,7 @@ seeder.connect(
   {
     useNewUrlParser: true,
     useCreateIndex: true,
+    useUnifiedTopology: true,
   },
   async () => {
     seeder.loadModels(['src/features/user/userModel.js']);
