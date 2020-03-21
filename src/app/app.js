@@ -8,15 +8,12 @@ const bodyParser = require('body-parser');
 const corsMiddleware = require('cors');
 const healthcheck = require('express-healthcheck');
 const expressPino = require('express-pino-logger');
+const { errors } = require('celebrate');
 
 const { cors, staticMaxAge, port } = require('../config');
 const routes = require('../app/routes');
 const logger = require('../common/services/logger');
-const {
-  requestValidationErrorHandler,
-  notFoundErrorHandler,
-  expressErrorHandler,
-} = require('./middleware/errorHandlers');
+const { notFoundErrorHandler, expressErrorHandler } = require('./middleware/errorHandlers');
 
 const app = express();
 
@@ -50,7 +47,7 @@ app.use('/healthcheck', healthcheck());
 
 app.use('/api', routes);
 
-app.use(requestValidationErrorHandler);
+app.use(errors());
 app.use(notFoundErrorHandler);
 app.use(expressErrorHandler);
 
