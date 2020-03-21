@@ -1,6 +1,6 @@
 'use strict';
 
-const uuidv4 = require('uuid/v4');
+const uuid = require('uuid');
 
 const mailer = require('../../common/services/mailer');
 const {
@@ -30,7 +30,7 @@ module.exports = {
     const user = new User({
       email: userData.email,
       password: userData.password,
-      activationToken: uuidv4(),
+      activationToken: uuid.v4(),
       activationExpires: Date.now() + activationExpireInMs,
     });
 
@@ -99,7 +99,7 @@ module.exports = {
       throw UserNotFoundError();
     }
 
-    user.passwordResetToken = uuidv4();
+    user.passwordResetToken = uuid.v4();
     user.passwordResetExpires = Date.now() + passwordResetExpireInMs;
 
     await user.save();
