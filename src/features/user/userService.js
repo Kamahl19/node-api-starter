@@ -67,9 +67,7 @@ module.exports = {
   },
 
   login: async (email, password) => {
-    const user = await User.findOne()
-      .byEmail(email)
-      .select('+password');
+    const user = await User.findOne().byEmail(email).select('+password');
 
     if (!user) {
       throw UserNotFoundError();
@@ -82,7 +80,7 @@ module.exports = {
     return user;
   },
 
-  relogin: async userId => {
+  relogin: async (userId) => {
     const user = await User.findById(userId);
 
     if (!user) {

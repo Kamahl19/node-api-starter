@@ -13,12 +13,12 @@ function parseAuthHeader(authHeader) {
 }
 
 module.exports = {
-  isAuthHeaderValid: authHeader => {
+  isAuthHeaderValid: (authHeader) => {
     const { bearer, token } = parseAuthHeader(authHeader);
     return !!(/^Bearer$/i.test(bearer) && token);
   },
 
-  getPayloadFromAuthHeader: authHeader => {
+  getPayloadFromAuthHeader: (authHeader) => {
     const { token } = parseAuthHeader(authHeader);
     return jwt.verify(token, jwtSecret);
   },
@@ -26,7 +26,7 @@ module.exports = {
   generateJWTToken: (subject, expiresIn = jwtTokenExpireInSec) =>
     jwt.sign({}, jwtSecret, { subject, expiresIn }),
 
-  hashPassword: async password => {
+  hashPassword: async (password) => {
     const salt = await bcrypt.genSalt(saltRounds);
     return await bcrypt.hash(password, salt);
   },

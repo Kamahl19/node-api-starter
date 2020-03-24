@@ -11,7 +11,7 @@ const { enviroment } = require('./config');
 
 const server = http.createServer(app);
 
-server.on('error', err => {
+server.on('error', (err) => {
   logger.error(err);
 
   if (err.syscall !== 'listen') {

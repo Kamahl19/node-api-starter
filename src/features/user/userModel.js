@@ -32,31 +32,31 @@ userSchema.pre('save', async function save(next) {
 /**
  * Schema methods
  */
-userSchema.methods.getAuthToken = function() {
+userSchema.methods.getAuthToken = function () {
   return generateJWTToken(this.id);
 };
 
-userSchema.methods.getPublicData = function() {
+userSchema.methods.getPublicData = function () {
   const { id, email, isActive, createdAt, updatedAt } = this;
   return { id, email, isActive, createdAt, updatedAt };
 };
 
-userSchema.methods.comparePassword = function(password) {
+userSchema.methods.comparePassword = function (password) {
   return comparePassword(password, this.password);
 };
 
 /**
  * Query methods
  */
-userSchema.query.byEmail = function(email) {
+userSchema.query.byEmail = function (email) {
   return this.where({ email: email.toLowerCase() });
 };
 
-userSchema.query.wherePasswordResetNotExpired = function() {
+userSchema.query.wherePasswordResetNotExpired = function () {
   return this.where('passwordResetExpires').gt(Date.now());
 };
 
-userSchema.query.whereActivationNotExpired = function() {
+userSchema.query.whereActivationNotExpired = function () {
   return this.where('activationExpires').gt(Date.now());
 };
 

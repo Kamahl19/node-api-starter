@@ -15,7 +15,7 @@ mongoose.connection.on('disconnected', () => {
   logger.info('MongoDB disconnected');
 });
 
-mongoose.connection.on('error', err => {
+mongoose.connection.on('error', (err) => {
   logger.error(err);
 });
 
@@ -32,7 +32,7 @@ module.exports = {
     });
   },
 
-  closeConnection: cb => {
+  closeConnection: (cb) => {
     mongoose.connection.close(() => {
       cb();
     });
