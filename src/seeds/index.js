@@ -5,7 +5,6 @@ require('dotenv').config();
 const seeder = require('mongoose-seed');
 
 const logger = require('../common/services/logger');
-const { hashPassword } = require('../common/services/auth');
 const { mongo } = require('../config');
 
 seeder.connect(
@@ -18,30 +17,25 @@ seeder.connect(
   async () => {
     seeder.loadModels(['src/features/user/userModel.js']);
 
-    const data = await getData();
-
     seeder.clearModels(['User'], () => {
-      seeder.populateModels(data, () => {
-        logger.info('DB seed was successful');
-        seeder.disconnect();
-      });
+      seeder.populateModels(
+        [
+          {
+            model: 'User',
+            documents: [
+              {
+                email: 'user@example.com',
+                password: 'password',
+                isActive: true,
+              },
+            ],
+          },
+        ],
+        () => {
+          logger.info('DB seed was successful');
+          seeder.disconnect();
+        }
+      );
     });
   }
 );
-
-async function getData() {
-  const password = await hashPassword('password');
-
-  return [
-    {
-      model: 'User',
-      documents: [
-        {
-          email: 'user@example.com',
-          password,
-          isActive: true,
-        },
-      ],
-    },
-  ];
-}

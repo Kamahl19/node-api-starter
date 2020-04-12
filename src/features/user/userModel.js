@@ -8,15 +8,33 @@ const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
-    passwordResetToken: String,
+    passwordResetToken: { type: String, select: false },
     passwordResetExpires: Date,
     isActive: { type: Boolean, default: false },
-    activationToken: String,
+    activationToken: { type: String, select: false },
     activationExpires: Date,
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      getters: true,
+      versionKey: false,
+      transform: function (_, ret) {
+        delete ret._id;
+        delete ret.password;
+        delete ret.passwordResetToken;
+        delete ret.passwordResetExpires;
+        delete ret.activationToken;
+        delete ret.activationExpires;
+        return ret;
+      },
+    },
+  }
 );
 
+/**
+ * Hooks
+ */
 userSchema.pre('save', async function save(next) {
   if (this.isModified('password')) {
     this.password = await hashPassword(this.password);
@@ -34,11 +52,6 @@ userSchema.pre('save', async function save(next) {
  */
 userSchema.methods.getAuthToken = function () {
   return generateJWTToken(this.id);
-};
-
-userSchema.methods.getPublicData = function () {
-  const { id, email, isActive, createdAt, updatedAt } = this;
-  return { id, email, isActive, createdAt, updatedAt };
 };
 
 userSchema.methods.comparePassword = function (password) {

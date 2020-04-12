@@ -17,7 +17,7 @@ module.exports = {
 
     return res.json({
       token: user.getAuthToken(),
-      user: user.getPublicData(),
+      user: user.toJSON(),
     });
   },
 
@@ -28,7 +28,7 @@ module.exports = {
 
     return res.json({
       token: user.getAuthToken(),
-      user: user.getPublicData(),
+      user: user.toJSON(),
     });
   },
 
@@ -39,7 +39,7 @@ module.exports = {
 
     return res.json({
       token: user.getAuthToken(),
-      user: user.getPublicData(),
+      user: user.toJSON(),
     });
   },
 
@@ -48,7 +48,7 @@ module.exports = {
 
     return res.json({
       token: user.getAuthToken(),
-      user: user.getPublicData(),
+      user: user.toJSON(),
     });
   },
 
@@ -67,7 +67,7 @@ module.exports = {
 
     return res.json({
       token: user.getAuthToken(),
-      user: user.getPublicData(),
+      user: user.toJSON(),
     });
   },
 };
