@@ -1,7 +1,7 @@
 'use strict';
 
-require('dotenv').config();
-require('express-async-errors');
+require('./bootstrap');
+
 const http = require('http');
 
 const logger = require('./common/services/logger');
@@ -18,7 +18,7 @@ server.on('error', (err) => {
     throw err;
   }
 
-  const bind = `${typeof err.port === 'string' ? 'Pipe' : 'Port'} ${app.get('port')}`;
+  const bind = `Port ${app.get('port')}`;
 
   switch (err.code) {
     case 'EACCES':
@@ -49,9 +49,8 @@ function shutDown(code) {
 db.connect().then(function startServer() {
   server.listen(app.get('port'), '0.0.0.0', () => {
     const addr = server.address();
-    const bind = typeof addr === 'string' ? `pipe ${addr}` : `${addr.address}:${addr.port}`;
 
-    logger.info(`Listening on ${bind}`);
+    logger.info(`Listening on ${addr.address}:${addr.port}`);
     logger.info(`Environment on ${enviroment}`);
   });
 });

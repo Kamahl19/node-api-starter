@@ -2,8 +2,8 @@
 
 const mongoose = require('mongoose');
 
+const { mongo, isDev } = require('../../config');
 const logger = require('./logger');
-const { mongo, IS_DEV } = require('../../config');
 
 mongoose.Promise = global.Promise;
 
@@ -21,7 +21,7 @@ mongoose.connection.on('error', (err) => {
 
 module.exports = {
   connect: () => {
-    mongoose.set('debug', IS_DEV);
+    mongoose.set('debug', isDev);
 
     return mongoose.connect(mongo.url, {
       promiseLibrary: global.Promise,

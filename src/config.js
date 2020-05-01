@@ -1,15 +1,17 @@
 'use strict';
 
+validateEnvVariables();
+
+const IS_DEV = process.env.NODE_ENV === 'development';
+
 const {
-  NODE_ENV = 'development',
+  NODE_ENV,
   MONGO_URL,
-  MAILGUN_API_KEY,
   JWT_SECRET,
-  LOG_LEVEL,
+  LOG_LEVEL = IS_DEV ? 'debug' : 'info',
+  MAILGUN_API_KEY,
   PORT,
 } = process.env;
-
-const IS_DEV = NODE_ENV === 'development';
 
 module.exports = {
   appName: 'starter',
@@ -27,6 +29,7 @@ module.exports = {
   },
   enviroment: NODE_ENV,
   logLevel: LOG_LEVEL,
+  isDev: IS_DEV,
   mail: {
     from: {
       name: 'Your Name',
@@ -42,20 +45,29 @@ module.exports = {
   },
   port: normalizePort(PORT),
   staticMaxAge: IS_DEV ? 0 : '1d',
-  IS_DEV,
 };
 
 function normalizePort(val) {
   const port = parseInt(val, 10);
+  return isNaN(port) ? val : port;
+}
 
-  // Named pipe
-  if (isNaN(port)) {
-    return val;
+function validateEnvVariables() {
+  const requiredEnvVars = ['NODE_ENV', 'MONGO_URL', 'JWT_SECRET', 'PORT'];
+  const nodeEnvOptions = ['development', 'production', 'test'];
+  const logLevelOptions = ['fatal', 'error', 'warn', 'info', 'debug', 'trace'];
+
+  requiredEnvVars.forEach((name) => {
+    if (process.env[name] === undefined || process.env[name] === '') {
+      throw new Error(`Env variable ${name} is required but was not set.`);
+    }
+  });
+
+  if (!nodeEnvOptions.includes(process.env.NODE_ENV)) {
+    throw new Error(`Env variable NODE_ENV must be one of ${nodeEnvOptions.toString()}.`);
   }
 
-  if (port >= 0) {
-    return port;
+  if (!logLevelOptions.includes(process.env.LOG_LEVEL)) {
+    throw new Error(`Env variable LOG_LEVEL must be one of ${logLevelOptions.toString()}.`);
   }
-
-  return false;
 }

@@ -2,7 +2,7 @@
 
 const httpStatus = require('http-status');
 
-const { IS_DEV } = require('../../config');
+const { isDev } = require('../../config');
 const { PageNotFoundError } = require('../../common/messages/errors');
 
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
 
     res.json({
       message: err.message,
-      error: IS_DEV ? err : {},
+      error: isDev ? err : {},
     });
   },
 };
