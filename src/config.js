@@ -8,7 +8,7 @@ process.env.LOG_LEVEL = process.env.LOG_LEVEL || IS_DEV ? 'debug' : 'info';
 
 validateEnvVariables();
 
-const { MONGO_URL, JWT_SECRET, LOG_LEVEL, MAILGUN_API_KEY, PORT } = process.env;
+const { MONGODB_URI, JWT_SECRET, LOG_LEVEL, MAILGUN_API_KEY, PORT } = process.env;
 
 module.exports = {
   appName: 'starter',
@@ -38,7 +38,7 @@ module.exports = {
     domain: undefined, // One of your domain names listed at your https://mailgun.com/app/domains
   },
   mongo: {
-    url: MONGO_URL,
+    url: MONGODB_URI,
   },
   port: normalizePort(PORT),
   staticMaxAge: IS_DEV ? 0 : '1d',
@@ -50,7 +50,7 @@ function normalizePort(val) {
 }
 
 function validateEnvVariables() {
-  const requiredEnvVars = ['NODE_ENV', 'MONGO_URL', 'JWT_SECRET', 'PORT'];
+  const requiredEnvVars = ['NODE_ENV', 'MONGODB_URI', 'JWT_SECRET', 'PORT'];
   const nodeEnvOptions = ['development', 'production', 'test'];
   const logLevelOptions = ['fatal', 'error', 'warn', 'info', 'debug', 'trace'];
 
