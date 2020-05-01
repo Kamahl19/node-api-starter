@@ -1,17 +1,14 @@
 'use strict';
 
+const { NODE_ENV } = process.env;
+
+const IS_DEV = NODE_ENV === 'development';
+
+process.env.LOG_LEVEL = process.env.LOG_LEVEL || IS_DEV ? 'debug' : 'info';
+
 validateEnvVariables();
 
-const IS_DEV = process.env.NODE_ENV === 'development';
-
-const {
-  NODE_ENV,
-  MONGO_URL,
-  JWT_SECRET,
-  LOG_LEVEL = IS_DEV ? 'debug' : 'info',
-  MAILGUN_API_KEY,
-  PORT,
-} = process.env;
+const { MONGO_URL, JWT_SECRET, LOG_LEVEL, MAILGUN_API_KEY, PORT } = process.env;
 
 module.exports = {
   appName: 'starter',
