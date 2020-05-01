@@ -56,7 +56,6 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-healthcheck": "^0.1.0",
-    "express-pino-logger": "^5.0.0",
     "helmet": "^3.22.0",
     "http-status": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
@@ -66,6 +65,7 @@
     "nodemailer": "^6.4.6",
     "nodemailer-mailgun-transport": "^2.0.0",
     "pino": "^6.1.1",
+    "pino-http": "^5.1.0",
     "uuid": "^7.0.3"
   },
   "eslintConfig": {

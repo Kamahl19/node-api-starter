@@ -7,7 +7,7 @@ const compression = require('compression');
 const bodyParser = require('body-parser');
 const corsMiddleware = require('cors');
 const healthcheck = require('express-healthcheck');
-const expressPino = require('express-pino-logger');
+const pino = require('pino-http');
 const { errors } = require('celebrate');
 
 const { cors, staticMaxAge, port } = require('../config');
@@ -19,11 +19,7 @@ const app = express();
 
 app.set('port', port);
 
-app.use(
-  expressPino({
-    logger,
-  })
-);
+app.use(pino({ logger }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
