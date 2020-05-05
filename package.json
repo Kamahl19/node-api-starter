@@ -12,8 +12,8 @@
     "url": "https://github.com/Kamahl19/node-api-starter/issues"
   },
   "engines": {
-    "node": ">=10.18.1",
-    "yarn": ">=1.22.4"
+    "node": "12.x",
+    "yarn": "1.x"
   },
   "main": "src/index.js",
   "scripts": {
