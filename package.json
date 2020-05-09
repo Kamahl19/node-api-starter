@@ -65,7 +65,7 @@
     "nodemailer-mailgun-transport": "^2.0.0",
     "pino": "^6.1.1",
     "pino-http": "^5.1.0",
-    "uuid": "^7.0.3"
+    "uuid": "^8.0.0"
   },
   "eslintConfig": {
     "extends": [
