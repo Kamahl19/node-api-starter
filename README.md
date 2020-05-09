@@ -8,7 +8,6 @@
   - [Helmet](https://github.com/helmetjs/helmet) - secures Express app with various HTTP headers
   - [express-async-errors](https://github.com/davidbanham/express-async-errors) - async/await support for ExpressJS
   - [express-healthcheck](https://github.com/lennym/express-healthcheck) - healthcheck middleware for express
-  - [body-parser](https://github.com/expressjs/body-parser) - body parsing middleware
 - [JWT](https://github.com/auth0/node-jsonwebtoken) Authorization - including all the common features such as Sign-up, Login, Logout, Forgotten password, Email verification
   - [bcrypt.js](https://github.com/dcodeIO/bcrypt.js) - bcrypt in plain JS with zero dependencies
 - [Mongoose](https://mongoosejs.com/) - MongoDB ORM

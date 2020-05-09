@@ -4,7 +4,6 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
-const bodyParser = require('body-parser');
 const corsMiddleware = require('cors');
 const healthcheck = require('express-healthcheck');
 const pino = require('pino-http');
@@ -21,8 +20,8 @@ app.set('port', port);
 
 app.use(pino({ logger }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(compression());
 
