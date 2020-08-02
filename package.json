@@ -55,7 +55,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-healthcheck": "^0.1.0",
-    "helmet": "^3.22.0",
+    "helmet": "^4.0.0",
     "http-status": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
