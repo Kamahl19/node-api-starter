@@ -29,7 +29,11 @@ if (cors && cors.origin) {
   app.use(corsMiddleware(cors));
 }
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 app.use(
   '/',

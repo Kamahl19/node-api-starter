@@ -12,7 +12,7 @@
     "url": "https://github.com/Kamahl19/node-api-starter/issues"
   },
   "engines": {
-    "node": "12.x",
+    "node": ">=12",
     "yarn": "1.x"
   },
   "main": "src/index.js",
@@ -37,17 +37,17 @@
     ]
   },
   "devDependencies": {
-    "eslint": "6.8.0",
+    "eslint": "7.7.0",
     "eslint-plugin-node": "11.1.0",
     "husky": "4.2.5",
     "lint-staged": "10.2.11",
     "nodemon": "2.0.4",
-    "pino-pretty": "4.0.3",
-    "prettier": "2.0.5"
+    "pino-pretty": "4.1.0",
+    "prettier": "2.1.0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "celebrate": "^12.0.1",
+    "celebrate": "^12.2.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -55,17 +55,17 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-healthcheck": "^0.1.0",
-    "helmet": "^3.22.0",
+    "helmet": "^4.1.0",
     "http-status": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
-    "mongoose": "^5.9.7",
+    "mongoose": "^5.10.0",
     "mongoose-seed": "^0.6.0",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.11",
     "nodemailer-mailgun-transport": "^2.0.0",
-    "pino": "^6.1.1",
-    "pino-http": "^5.1.0",
-    "uuid": "^8.0.0"
+    "pino": "^6.5.1",
+    "pino-http": "^5.2.0",
+    "uuid": "^8.3.0"
   },
   "eslintConfig": {
     "extends": [
