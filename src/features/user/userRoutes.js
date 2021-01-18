@@ -9,11 +9,7 @@ const schema = require('./userSchema');
 
 router.post('/users', validator(schema.signUp), controller.signUp);
 
-router.get(
-  '/users/:userId/activate/:activationToken',
-  validator(schema.activate),
-  controller.activate
-);
+router.get('/users/:userId/activate/:token', validator(schema.activate), controller.activate);
 
 router.post('/auth/login', validator(schema.login), controller.login);
 

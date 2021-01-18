@@ -22,9 +22,9 @@ module.exports = {
   },
 
   activate: async (req, res) => {
-    const { userId, activationToken } = req.params;
+    const { userId, token } = req.params;
 
-    const user = await activateUser(userId, activationToken);
+    const user = await activateUser(userId, token);
 
     return res.json({
       token: user.getAuthToken(),
@@ -61,9 +61,9 @@ module.exports = {
   },
 
   resetPassword: async (req, res) => {
-    const { email, passwordResetToken, password } = req.body;
+    const { email, token, password } = req.body;
 
-    const user = await resetPassword(email, passwordResetToken, password);
+    const user = await resetPassword(email, token, password);
 
     return res.json({
       token: user.getAuthToken(),

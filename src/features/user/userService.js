@@ -11,12 +11,11 @@ const {
 const {
   UserNotFoundError,
   LoginCredentialsError,
-  ActivationTokenInvalidError,
-  PasswordResetTokenInvalidError,
+  TokenInvalidError,
   UserAlreadyExistsError,
 } = require('../../common/messages/errors');
 const {
-  auth: { activationExpireInMs, passwordResetExpireInMs },
+  auth: { activationTokenExpireInMs, passwordResetTokenExpireInMs },
 } = require('../../config');
 
 const User = require('./userModel');
@@ -27,11 +26,13 @@ module.exports = {
       throw UserAlreadyExistsError();
     }
 
+    const token = uuid.v4();
+
     const user = new User({
       email: userData.email,
       password: userData.password,
-      activationToken: uuid.v4(),
-      activationExpires: Date.now() + activationExpireInMs,
+      activationToken: token,
+      activationExpires: Date.now() + activationTokenExpireInMs,
     });
 
     await user.save();
@@ -41,20 +42,23 @@ module.exports = {
       activationMail({
         origin,
         userId: user.id,
-        activationToken: user.activationToken,
+        token,
       })
     );
 
     return user;
   },
 
-  activateUser: async (userId, activationToken) => {
+  activateUser: async (userId, token) => {
     const user = await User.findById(userId)
-      .where({ activationToken, isActive: false })
+      .where({
+        activationToken: token,
+        isActive: false,
+      })
       .whereActivationNotExpired();
 
     if (!user) {
-      throw ActivationTokenInvalidError();
+      throw TokenInvalidError();
     }
 
     user.isActive = true;
@@ -97,8 +101,10 @@ module.exports = {
       throw UserNotFoundError();
     }
 
-    user.passwordResetToken = uuid.v4();
-    user.passwordResetExpires = Date.now() + passwordResetExpireInMs;
+    const token = uuid.v4();
+
+    user.passwordResetToken = token;
+    user.passwordResetExpires = Date.now() + passwordResetTokenExpireInMs;
 
     await user.save();
 
@@ -106,21 +112,21 @@ module.exports = {
       user.email,
       forgottenPasswordMail({
         origin,
-        passwordResetToken: user.passwordResetToken,
+        token,
       })
     );
 
     return user;
   },
 
-  resetPassword: async (email, passwordResetToken, password) => {
+  resetPassword: async (email, token, password) => {
     const user = await User.findOne()
       .byEmail(email)
-      .where({ passwordResetToken })
+      .where({ passwordResetToken: token })
       .wherePasswordResetNotExpired();
 
     if (!user) {
-      throw PasswordResetTokenInvalidError();
+      throw TokenInvalidError();
     }
 
     user.password = password;

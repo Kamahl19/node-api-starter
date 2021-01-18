@@ -13,9 +13,9 @@ const { MONGODB_URI, JWT_SECRET, LOG_LEVEL, MAILGUN_API_KEY, PORT } = process.en
 module.exports = {
   appName: 'starter',
   auth: {
-    jwtTokenExpireInSec: 24 * 60 * 60, // 1 day
-    passwordResetExpireInMs: 60 * 60 * 1000, // 1 hour
-    activationExpireInMs: 24 * 60 * 60 * 1000, // 1 day
+    jwtTokenExpireInMs: 24 * 60 * 60 * 1000, // 1 day
+    passwordResetTokenExpireInMs: 60 * 60 * 1000, // 1 hour
+    activationTokenExpireInMs: 24 * 60 * 60 * 1000, // 1 day
     saltRounds: 10,
     jwtSecret: JWT_SECRET,
   },

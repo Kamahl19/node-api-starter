@@ -15,7 +15,7 @@ module.exports = {
   activate: {
     [Segments.PARAMS]: Joi.object().keys({
       userId: objectId.required(),
-      activationToken: uuidv4.required(),
+      token: uuidv4.required(),
     }),
   },
 
@@ -36,7 +36,7 @@ module.exports = {
     [Segments.BODY]: Joi.object().keys({
       email: email.required(),
       password: password.required(),
-      passwordResetToken: uuidv4.required(),
+      token: uuidv4.required(),
     }),
   },
 };

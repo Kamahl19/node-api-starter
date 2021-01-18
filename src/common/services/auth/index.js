@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const {
-  auth: { jwtTokenExpireInSec, saltRounds, jwtSecret },
+  auth: { jwtTokenExpireInMs, saltRounds, jwtSecret },
 } = require('../../../config');
 
 function parseAuthHeader(authHeader) {
@@ -23,8 +23,8 @@ module.exports = {
     return jwt.verify(token, jwtSecret);
   },
 
-  generateJWTToken: (subject, expiresIn = jwtTokenExpireInSec) =>
-    jwt.sign({}, jwtSecret, { subject, expiresIn }),
+  generateJWTToken: (subject, expiresInMs = jwtTokenExpireInMs) =>
+    jwt.sign({}, jwtSecret, { subject, expiresIn: `${expiresInMs}ms` }),
 
   hashPassword: async (password) => {
     const salt = await bcrypt.genSalt(saltRounds);

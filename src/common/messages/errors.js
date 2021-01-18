@@ -13,11 +13,7 @@ module.exports = {
 
   UserNotFoundError: () => new NotFoundError('Requested user does not exist.'),
 
-  ActivationTokenInvalidError: () =>
-    new ForbiddenError('Activation token is invalid or has expired.'),
-
-  PasswordResetTokenInvalidError: () =>
-    new ForbiddenError('Password reset token is invalid or has expired.'),
+  TokenInvalidError: () => new ForbiddenError('Token is invalid or has expired.'),
 
   LoginCredentialsError: () => new UnauthorizedError('Login credentials are wrong.'),
 
