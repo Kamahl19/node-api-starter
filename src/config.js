@@ -21,7 +21,7 @@ module.exports = {
   },
   cors: {
     origin: 'http://localhost:3000', // set undefined if frontend is being served by backend
-    methods: 'POST,GET,PUT,OPTIONS,DELETE',
+    methods: 'POST,GET,PUT,OPTIONS,DELETE,HEAD,PATCH',
     allowedHeaders: 'Timezone-Offset,Origin,X-Requested-With,Content-Type,Accept,Authorization',
   },
   enviroment: NODE_ENV,
