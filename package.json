@@ -19,7 +19,7 @@
   "scripts": {
     "format": "prettier --write . --ignore-unknown",
     "format-check": "prettier --check . --ignore-unknown",
-    "lint": "eslint",
+    "lint": "eslint .",
     "seed": "node src/seeds/index.js",
     "start": "nodemon --watch .env --watch . --inspect src/index.js"
   },
