@@ -17,9 +17,9 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "format": "prettier --write '**/*.{js,json,md,yml,yaml}'",
-    "format-check": "prettier --check '**/*.{js,json,md,yml,yaml}'",
-    "lint": "node ./node_modules/eslint/bin/eslint.js '**/*.js'",
+    "format": "prettier --write . --ignore-unknown",
+    "format-check": "prettier --check . --ignore-unknown",
+    "lint": "eslint",
     "seed": "node src/seeds/index.js",
     "start": "nodemon --watch .env --watch . --inspect src/index.js"
   },
@@ -30,10 +30,10 @@
   },
   "lint-staged": {
     "*.js": [
-      "yarn lint --fix"
+      "eslint --fix"
     ],
-    "*.{js,json,md,yml,yaml}": [
-      "prettier --write"
+    "**/*": [
+      "prettier --write --ignore-unknown"
     ]
   },
   "devDependencies": {
