@@ -649,10 +649,10 @@ data-uri-to-buffer@1:
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-1.2.0.tgz#77163ea9c20d8641b4707e8f18abdf9a78f34835"
   integrity sha512-vKQ9DTQPN1FLYiiEEOQ6IBGFqvjCa5rSK3cWMy/Nespm5d/x3dGFT9UBZnkLxCwua/IXBi2TYnwTEpsOvhC4UQ==
 
-dateformat@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
-  integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
+dateformat@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-4.5.1.tgz#c20e7a9ca77d147906b6dc2261a8be0a5bd2173c"
+  integrity sha512-OD0TZ+B7yP7ZgpJf5K2DIbj3FZvFvxgFUuaqA/V5zTjAtAAXZ1E8bktHxmAGs4x5b7PflqA9LeQ84Og7wYtF7Q==
 
 debug@2, debug@2.6.9, debug@^2.2.0:
   version "2.6.9"
@@ -2308,15 +2308,15 @@ pino-http@^5.2.0:
     pino "^6.0.0"
     pino-std-serializers "^2.4.0"
 
-pino-pretty@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-4.5.0.tgz#8249058a3c2129b9b5c0663a7298ed58d59f4a07"
-  integrity sha512-TtIzAq3JrPT4cYMZcXHypAXYV+MTE7ncAPUFoaz/1enVD2Loj+hV6RZsypYo85dm7SbBolW6fcIydOF28iGjsg==
+pino-pretty@4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-4.7.1.tgz#499cf185e110399deae731221c899915c811bd1a"
+  integrity sha512-ILE5YBpur88FlZ0cr1BNqVjgG9fOoK+md3peqmcs7AC6oq7SNiaJioIcrykMxfNsuygMYjUJtvAcARRE9aRc9w==
   dependencies:
     "@hapi/bourne" "^2.0.0"
     args "^5.0.1"
     chalk "^4.0.0"
-    dateformat "^3.0.3"
+    dateformat "^4.5.1"
     fast-safe-stringify "^2.0.7"
     jmespath "^0.15.0"
     joycon "^2.2.5"
