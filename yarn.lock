@@ -407,10 +407,10 @@ camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-celebrate@^13.0.0:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/celebrate/-/celebrate-13.0.1.tgz#55c70a8d4ac64b3bc44357e903287118b3b71ce5"
-  integrity sha512-wMChTd/dJIbw/i8u3ftdgWuXxbfNCla5OIV8BM03+/w1U0zrvC/UpcUjnPNhubWP3IlNzn3UWv8m11yD5AOgUw==
+celebrate@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/celebrate/-/celebrate-14.0.0.tgz#c4e5464049314fc5e90cb67b7fc7cea7be5898c9"
+  integrity sha512-TqbsEkppmR3st1XFAatlfrWM2q0peZpaXDr0qAs4mXZ8yHtjwYYUgSl4/pluL+hlljbdC9OAJVkL5U3dFpSwxw==
   dependencies:
     escape-html "1.0.3"
     joi "17.x.x"
