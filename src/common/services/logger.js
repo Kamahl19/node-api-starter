@@ -7,5 +7,14 @@ const { isDev, appName, logLevel } = require('../../config');
 module.exports = pino({
   name: appName,
   level: logLevel,
-  prettyPrint: isDev,
+  ...(isDev
+    ? {
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            colorize: true,
+          },
+        },
+      }
+    : undefined),
 });

@@ -25,10 +25,6 @@ module.exports = {
 
     return mongoose.connect(mongo.url, {
       promiseLibrary: global.Promise,
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
     });
   },
 
