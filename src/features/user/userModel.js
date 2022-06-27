@@ -10,9 +10,9 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true, select: false },
     passwordResetToken: { type: String, select: false },
     passwordResetExpires: Date,
-    isActive: { type: Boolean, default: false },
-    activationToken: { type: String, select: false },
-    activationExpires: Date,
+    isConfirmed: { type: Boolean, default: false },
+    confirmationToken: { type: String, select: false },
+    confirmationExpires: Date,
   },
   {
     timestamps: true,
@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema(
         delete ret.password;
         delete ret.passwordResetToken;
         delete ret.passwordResetExpires;
-        delete ret.activationToken;
-        delete ret.activationExpires;
+        delete ret.confirmationToken;
+        delete ret.confirmationExpires;
         return ret;
       },
     },
@@ -65,12 +65,20 @@ userSchema.query.byEmail = function (email) {
   return this.where({ email: email.toLowerCase() });
 };
 
+userSchema.query.byConfirmationToken = function (confirmationToken) {
+  return this.where({ confirmationToken });
+};
+
+userSchema.query.byPasswordResetToken = function (passwordResetToken) {
+  return this.where({ passwordResetToken });
+};
+
 userSchema.query.wherePasswordResetNotExpired = function () {
   return this.where('passwordResetExpires').gt(Date.now());
 };
 
-userSchema.query.whereActivationNotExpired = function () {
-  return this.where('activationExpires').gt(Date.now());
+userSchema.query.whereConfirmationNotExpired = function () {
+  return this.where('confirmationExpires').gt(Date.now());
 };
 
 module.exports = mongoose.model('User', userSchema);

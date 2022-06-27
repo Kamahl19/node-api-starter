@@ -7,12 +7,15 @@ const compression = require('compression');
 const corsMiddleware = require('cors');
 const healthcheck = require('express-healthcheck');
 const pino = require('pino-http');
-const { errors } = require('celebrate');
 
 const { cors, staticMaxAge, port } = require('../config');
 const routes = require('../app/routes');
 const logger = require('../common/services/logger');
-const { notFoundErrorHandler, expressErrorHandler } = require('./middleware/errorHandlers');
+const {
+  notFoundErrorHandler,
+  expressErrorHandler,
+  celebrateErrorHandler,
+} = require('./middleware/errorHandlers');
 
 const app = express();
 
@@ -46,7 +49,7 @@ app.use('/healthcheck', healthcheck());
 
 app.use('/api', routes);
 
-app.use(errors());
+app.use(celebrateErrorHandler);
 app.use(notFoundErrorHandler);
 app.use(expressErrorHandler);
 

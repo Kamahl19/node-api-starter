@@ -15,7 +15,7 @@ module.exports = {
   auth: {
     jwtTokenExpireInMs: 24 * 60 * 60 * 1000, // 1 day
     passwordResetTokenExpireInMs: 60 * 60 * 1000, // 1 hour
-    activationTokenExpireInMs: 24 * 60 * 60 * 1000, // 1 day
+    confirmationTokenExpireInMs: 24 * 60 * 60 * 1000, // 1 day
     saltRounds: 10,
     jwtSecret: JWT_SECRET,
   },

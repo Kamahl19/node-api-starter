@@ -5,6 +5,12 @@ const { Joi, Segments } = require('celebrate');
 const { email, password, objectId, uuidv4 } = require('../../common/rules');
 
 module.exports = {
+  getUser: {
+    [Segments.PARAMS]: Joi.object().keys({
+      userId: objectId.required(),
+    }),
+  },
+
   signUp: {
     [Segments.BODY]: Joi.object().keys({
       email: email.required(),
@@ -12,17 +18,16 @@ module.exports = {
     }),
   },
 
-  activate: {
+  confirmEmail: {
     [Segments.PARAMS]: Joi.object().keys({
-      userId: objectId.required(),
       token: uuidv4.required(),
     }),
   },
 
-  login: {
+  changePassword: {
     [Segments.BODY]: Joi.object().keys({
-      email: email.required(),
       password: password.required(),
+      currentPassword: password.required(),
     }),
   },
 
@@ -34,7 +39,6 @@ module.exports = {
 
   resetPassword: {
     [Segments.BODY]: Joi.object().keys({
-      email: email.required(),
       password: password.required(),
       token: uuidv4.required(),
     }),

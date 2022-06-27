@@ -6,21 +6,31 @@ const mailer = require('../../common/services/mailer');
 const {
   forgottenPasswordMail,
   resetPasswordMail,
-  activationMail,
+  confirmationMail,
 } = require('../../common/messages/mails');
 const {
   UserNotFoundError,
-  LoginCredentialsError,
+  IncorrectPassword,
   TokenInvalidError,
   UserAlreadyExistsError,
 } = require('../../common/messages/errors');
 const {
-  auth: { activationTokenExpireInMs, passwordResetTokenExpireInMs },
+  auth: { confirmationTokenExpireInMs, passwordResetTokenExpireInMs },
 } = require('../../config');
 
 const User = require('./userModel');
 
 module.exports = {
+  getUser: async (userId) => {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw TokenInvalidError();
+    }
+
+    return user;
+  },
+
   createUser: async (userData, origin) => {
     if (await User.findOne().byEmail(userData.email)) {
       throw UserAlreadyExistsError();
@@ -31,17 +41,16 @@ module.exports = {
     const user = new User({
       email: userData.email,
       password: userData.password,
-      activationToken: token,
-      activationExpires: Date.now() + activationTokenExpireInMs,
+      confirmationToken: token,
+      confirmationExpires: Date.now() + confirmationTokenExpireInMs,
     });
 
     await user.save();
 
     mailer.sendMail(
       user.email,
-      activationMail({
+      confirmationMail({
         origin,
-        userId: user.id,
         token,
       })
     );
@@ -49,47 +58,39 @@ module.exports = {
     return user;
   },
 
-  activateUser: async (userId, token) => {
-    const user = await User.findById(userId)
-      .where({
-        activationToken: token,
-        isActive: false,
-      })
-      .whereActivationNotExpired();
+  confirmEmail: async (token) => {
+    const user = await User.findOne()
+      .byConfirmationToken(token)
+      .where({ isConfirmed: false })
+      .whereConfirmationNotExpired();
 
     if (!user) {
       throw TokenInvalidError();
     }
 
-    user.isActive = true;
-    user.activationToken = undefined;
-    user.activationExpires = undefined;
+    user.isConfirmed = true;
+    user.confirmationToken = undefined;
+    user.confirmationExpires = undefined;
 
     await user.save();
 
     return user;
   },
 
-  login: async (email, password) => {
-    const user = await User.findOne().byEmail(email).select('+password');
+  changePassword: async (userId, password, currentPassword) => {
+    const user = await User.findById(userId).select('+password');
 
     if (!user) {
       throw UserNotFoundError();
     }
 
-    if (!user.comparePassword(password)) {
-      throw LoginCredentialsError();
+    if (!user.comparePassword(currentPassword)) {
+      throw IncorrectPassword();
     }
 
-    return user;
-  },
+    user.password = password;
 
-  relogin: async (userId) => {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      throw UserNotFoundError();
-    }
+    await user.save();
 
     return user;
   },
@@ -119,11 +120,8 @@ module.exports = {
     return user;
   },
 
-  resetPassword: async (email, token, password) => {
-    const user = await User.findOne()
-      .byEmail(email)
-      .where({ passwordResetToken: token })
-      .wherePasswordResetNotExpired();
+  resetPassword: async (token, password) => {
+    const user = await User.findOne().byPasswordResetToken(token).wherePasswordResetNotExpired();
 
     if (!user) {
       throw TokenInvalidError();

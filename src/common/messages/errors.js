@@ -1,7 +1,6 @@
 'use strict';
 
 const {
-  BadRequestError,
   NotFoundError,
   ForbiddenError,
   UnauthorizedError,
@@ -11,20 +10,18 @@ const {
 module.exports = {
   PageNotFoundError: () => new NotFoundError('Page not found'),
 
-  UserNotFoundError: () => new NotFoundError('Requested user does not exist.'),
+  UserNotFoundError: () => new NotFoundError('User does not exist.'),
 
   TokenInvalidError: () => new ForbiddenError('Token is invalid or has expired.'),
 
-  LoginCredentialsError: () => new UnauthorizedError('Login credentials are wrong.'),
+  IncorrectPassword: () => new UnauthorizedError('Incorrect password.'),
 
   NotAllowedAccessError: () => new UnauthorizedError('You are not allowed to access this page.'),
 
   AuthTokenNotFoundError: () => new UnauthorizedError('No authorization token was found.'),
 
   AuthTokenInvalidError: () =>
-    new UnauthorizedError('Format of the Authorization header is invalid.'),
+    new UnauthorizedError('Format of the authorization header is invalid.'),
 
-  RequestNotValidError: (message, validation) => new BadRequestError(message, validation),
-
-  UserAlreadyExistsError: () => new Conflict('User already exists'),
+  UserAlreadyExistsError: () => new Conflict('User with this e-mail address already exists'),
 };

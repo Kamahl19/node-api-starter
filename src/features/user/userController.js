@@ -1,53 +1,50 @@
 'use strict';
 
 const {
+  getUser,
   createUser,
-  activateUser,
-  login,
-  relogin,
+  confirmEmail,
+  changePassword,
   forgottenPassword,
   resetPassword,
 } = require('./userService');
 
 module.exports = {
+  getUser: async (req, res) => {
+    const { userId } = req.params;
+
+    const user = await getUser(userId);
+
+    return res.json({
+      user: user.toJSON(),
+    });
+  },
+
   signUp: async (req, res) => {
     const { email, password } = req.body;
 
     const user = await createUser({ email, password }, req.headers.origin);
 
     return res.json({
-      token: user.getAuthToken(),
       user: user.toJSON(),
     });
   },
 
-  activate: async (req, res) => {
-    const { userId, token } = req.params;
+  confirmEmail: async (req, res) => {
+    const { token } = req.params;
 
-    const user = await activateUser(userId, token);
+    await confirmEmail(token);
 
-    return res.json({
-      token: user.getAuthToken(),
-      user: user.toJSON(),
-    });
+    return res.json(true);
   },
 
-  login: async (req, res) => {
-    const { email, password } = req.body;
+  changePassword: async (req, res) => {
+    const userId = req.jwtPayload.sub;
+    const { password, currentPassword } = req.body;
 
-    const user = await login(email, password);
-
-    return res.json({
-      token: user.getAuthToken(),
-      user: user.toJSON(),
-    });
-  },
-
-  relogin: async (req, res) => {
-    const user = await relogin(req.jwtPayload.sub);
+    const user = await changePassword(userId, password, currentPassword);
 
     return res.json({
-      token: user.getAuthToken(),
       user: user.toJSON(),
     });
   },
@@ -57,17 +54,14 @@ module.exports = {
 
     await forgottenPassword(email, req.headers.origin);
 
-    return res.end();
+    return res.json(true);
   },
 
   resetPassword: async (req, res) => {
-    const { email, token, password } = req.body;
+    const { token, password } = req.body;
 
-    const user = await resetPassword(email, token, password);
+    await resetPassword(token, password);
 
-    return res.json({
-      token: user.getAuthToken(),
-      user: user.toJSON(),
-    });
+    return res.json(true);
   },
 };

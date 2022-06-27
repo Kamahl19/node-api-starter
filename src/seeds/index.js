@@ -19,7 +19,7 @@ seeder.connect(mongo.url, async () => {
             {
               email: 'user@example.com',
               password: 'password',
-              isActive: true,
+              isConfirmed: true,
             },
           ],
         },
