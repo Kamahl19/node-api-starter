@@ -20,7 +20,7 @@ module.exports = {
     jwtSecret: JWT_SECRET,
   },
   cors: {
-    origin: 'http://localhost:3000', // set undefined if frontend is being served by backend
+    origin: 'http://127.0.0.1:3000', // set undefined if frontend is being served by backend
     methods: 'POST,GET,PUT,OPTIONS,DELETE,HEAD,PATCH',
     allowedHeaders: 'Timezone-Offset,Origin,X-Requested-With,Content-Type,Accept,Authorization',
   },
