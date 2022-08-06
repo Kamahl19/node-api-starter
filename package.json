@@ -60,7 +60,7 @@
     "http-status": "1.5.2",
     "jsonwebtoken": "8.5.1",
     "lodash.merge": "4.6.2",
-    "mongoose": "6.4.0",
+    "mongoose": "6.4.6",
     "mongoose-seed": "0.6.0",
     "nodemailer": "6.7.5",
     "nodemailer-mailgun-transport": "2.1.4",
