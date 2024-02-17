@@ -1,8 +1,7 @@
 'use strict';
 
-const uuid = require('uuid');
-
 const mailer = require('../../common/services/mailer');
+const { generateJWTToken, verifyJWTToken } = require('../../common/services/auth');
 const {
   forgottenPasswordMail,
   resetPasswordMail,
@@ -25,7 +24,7 @@ module.exports = {
     const user = await User.findById(userId);
 
     if (!user) {
-      throw TokenInvalidError();
+      throw UserNotFoundError();
     }
 
     return user;
@@ -36,13 +35,10 @@ module.exports = {
       throw UserAlreadyExistsError();
     }
 
-    const token = uuid.v4();
-
     const user = new User({
       email: userData.email,
       password: userData.password,
-      confirmationToken: token,
-      confirmationExpires: Date.now() + confirmationTokenExpireInMs,
+      confirmationToken: generateJWTToken(undefined, confirmationTokenExpireInMs),
     });
 
     await user.save();
@@ -51,7 +47,7 @@ module.exports = {
       user.email,
       confirmationMail({
         origin,
-        token,
+        token: user.confirmationToken,
       })
     );
 
@@ -59,18 +55,14 @@ module.exports = {
   },
 
   confirmEmail: async (token) => {
-    const user = await User.findOne()
-      .byConfirmationToken(token)
-      .where({ isConfirmed: false })
-      .whereConfirmationNotExpired();
+    const user = await User.findOne().byConfirmationToken(token).where({ isConfirmed: false });
 
-    if (!user) {
+    if (!user || !verifyJWTToken(token)) {
       throw TokenInvalidError();
     }
 
     user.isConfirmed = true;
     user.confirmationToken = undefined;
-    user.confirmationExpires = undefined;
 
     await user.save();
 
@@ -102,10 +94,7 @@ module.exports = {
       throw UserNotFoundError();
     }
 
-    const token = uuid.v4();
-
-    user.passwordResetToken = token;
-    user.passwordResetExpires = Date.now() + passwordResetTokenExpireInMs;
+    user.passwordResetToken = generateJWTToken(undefined, passwordResetTokenExpireInMs);
 
     await user.save();
 
@@ -113,7 +102,7 @@ module.exports = {
       user.email,
       forgottenPasswordMail({
         origin,
-        token,
+        token: user.passwordResetToken,
       })
     );
 
@@ -121,15 +110,14 @@ module.exports = {
   },
 
   resetPassword: async (token, password) => {
-    const user = await User.findOne().byPasswordResetToken(token).wherePasswordResetNotExpired();
+    const user = await User.findOne().byPasswordResetToken(token);
 
-    if (!user) {
+    if (!user || !verifyJWTToken(token)) {
       throw TokenInvalidError();
     }
 
     user.password = password;
     user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
 
     await user.save();
 

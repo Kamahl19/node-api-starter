@@ -37,9 +37,9 @@ There is also a `src/config.js` file with several configuration options.
 ### Install, Seed DB & Start the server
 
 ```
-yarn install
-yarn seed
-yarn start
+npm install
+npm run seed
+npm start
 ```
 
 The server will start at `http://localhost:3001`
@@ -70,7 +70,7 @@ git push heroku master
 
 ## Prettier
 
-This project uses [Prettier](https://prettier.io/), an opinionated code formatter. In order to format code manually, run `yarn format` in app root directory. All the code is also formatted automatically on `pre-commit` hook. There is also `yarn format-check` for CI purposes to check if code is formatted properly.
+This project uses [Prettier](https://prettier.io/), an opinionated code formatter. In order to format code manually, run `npm run format` in app root directory. All the code is also formatted automatically on `pre-commit` hook. There is also `npm run format-check` for CI purposes to check if code is formatted properly.
 
 ## ESLint
 
@@ -78,7 +78,7 @@ Project comes with ESLint configured. It helps you prevent common errors.
 
 There are multiple ways how to run ESLint.
 
-- CLI: `yarn lint`
+- CLI: `npm run lint`
 - it runs automatically on `pre-commit` hook
 - in IDE if supported (Visual Studio Code supports reports)
 

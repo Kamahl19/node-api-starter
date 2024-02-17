@@ -3,14 +3,14 @@
 const router = require('express').Router();
 
 const validator = require('../../common/services/validator');
-const verifyToken = require('../../common/services/auth/middleware/verifyToken');
+const verifyAuthorizationHeader = require('../../common/services/auth/middleware/verifyAuthorizationHeader');
 const isOwnUserId = require('./middleware/isOwnUserId');
 const controller = require('./userController');
 const schema = require('./userSchema');
 
 router.get(
   '/user/:userId',
-  verifyToken,
+  verifyAuthorizationHeader,
   isOwnUserId,
   validator(schema.getUser),
   controller.getUser
@@ -22,7 +22,7 @@ router.patch('/user/confirm-email/:token', validator(schema.confirmEmail), contr
 
 router.patch(
   '/user/:userId/password',
-  verifyToken,
+  verifyAuthorizationHeader,
   isOwnUserId,
   validator(schema.changePassword),
   controller.changePassword

@@ -1,14 +1,14 @@
 'use strict';
 
-const { AuthTokenNotFoundError, AuthTokenInvalidError } = require('../../../messages/errors');
+const { AuthHeaderNotFoundError, AuthTokenInvalidError } = require('../../../messages/errors');
 const { isAuthHeaderValid, getPayloadFromAuthHeader } = require('../');
 
 /**
- * Verify user token
+ * Verify authorization header
  */
-module.exports = function verifyToken(req, res, next) {
+module.exports = function verifyAuthorizationHeader(req, res, next) {
   if (!req.headers || !req.headers.authorization) {
-    throw AuthTokenNotFoundError();
+    throw AuthHeaderNotFoundError();
   }
 
   if (!isAuthHeaderValid(req.headers.authorization)) {

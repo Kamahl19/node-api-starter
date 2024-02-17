@@ -18,7 +18,7 @@ module.exports = {
 
   NotAllowedAccessError: () => new UnauthorizedError('You are not allowed to access this page.'),
 
-  AuthTokenNotFoundError: () => new UnauthorizedError('No authorization token was found.'),
+  AuthHeaderNotFoundError: () => new UnauthorizedError('No authorization header was found.'),
 
   AuthTokenInvalidError: () =>
     new UnauthorizedError('Format of the authorization header is invalid.'),

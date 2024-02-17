@@ -8,11 +8,9 @@ const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
-    passwordResetToken: { type: String, select: false },
-    passwordResetExpires: Date,
     isConfirmed: { type: Boolean, default: false },
     confirmationToken: { type: String, select: false },
-    confirmationExpires: Date,
+    passwordResetToken: { type: String, select: false },
   },
   {
     timestamps: true,
@@ -22,10 +20,8 @@ const userSchema = new mongoose.Schema(
       transform: function (_, ret) {
         delete ret._id;
         delete ret.password;
-        delete ret.passwordResetToken;
-        delete ret.passwordResetExpires;
         delete ret.confirmationToken;
-        delete ret.confirmationExpires;
+        delete ret.passwordResetToken;
         return ret;
       },
     },
@@ -71,14 +67,6 @@ userSchema.query.byConfirmationToken = function (confirmationToken) {
 
 userSchema.query.byPasswordResetToken = function (passwordResetToken) {
   return this.where({ passwordResetToken });
-};
-
-userSchema.query.wherePasswordResetNotExpired = function () {
-  return this.where('passwordResetExpires').gt(Date.now());
-};
-
-userSchema.query.whereConfirmationNotExpired = function () {
-  return this.where('confirmationExpires').gt(Date.now());
 };
 
 module.exports = mongoose.model('User', userSchema);

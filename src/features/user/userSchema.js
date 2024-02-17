@@ -2,7 +2,7 @@
 
 const { Joi, Segments } = require('celebrate');
 
-const { email, password, objectId, uuidv4 } = require('../../common/rules');
+const { email, password, objectId, jwtToken } = require('../../common/rules');
 
 module.exports = {
   getUser: {
@@ -20,7 +20,7 @@ module.exports = {
 
   confirmEmail: {
     [Segments.PARAMS]: Joi.object().keys({
-      token: uuidv4.required(),
+      token: jwtToken.required(),
     }),
   },
 
@@ -40,7 +40,7 @@ module.exports = {
   resetPassword: {
     [Segments.BODY]: Joi.object().keys({
       password: password.required(),
-      token: uuidv4.required(),
+      token: jwtToken.required(),
     }),
   },
 };

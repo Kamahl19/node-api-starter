@@ -18,6 +18,15 @@ module.exports = {
     return !!(/^Bearer$/i.test(bearer) && token);
   },
 
+  verifyJWTToken: (token) => {
+    try {
+      jwt.verify(token, jwtSecret);
+      return true;
+    } catch {
+      return false;
+    }
+  },
+
   getPayloadFromAuthHeader: (authHeader) => {
     const { token } = parseAuthHeader(authHeader);
     return jwt.verify(token, jwtSecret);
